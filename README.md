@@ -4,28 +4,6 @@ This is a [Haxe](http://www.haxe.org) project, read more about it in the [README
 
 ![](icon.png)
 
-- project target : js
-- project license : MIT
-- project author : Matthijs Kamstra aka [mck]
-- project website : 
+> A flashcard or flash card (also known as an index card) is a card bearing information on both sides, which is intended to be used as an aid in memorization. Each flashcard bears a question on one side and an answer on the other. Flashcards are often used to memorize vocabulary, historical dates, formulas or any subject matter that can be learned via a question-and-answer format. Flashcards can be virtual (part of a flashcard software), or physical.
 
-# Why = The Purpose
-
-**What is your cause? What do you believe?**
-
-> Simon Sinek: Very few origanizations know WHY they do what they do. WHY is not about making money. That's a result. It's a purpose, cause or belief. It's the very reason your organization exists.
-> Apple: We believe in challenging the status quo and doing this differently
-
-# How = The Proces
-
-**Specific action taken to realize the Why.**
-
-> Simon Sinek: Some organizations know HOW they do it. These are the things that make them special or set them apart from their competition.
-> Apple: Our products are beautifully designed and easy to use
-
-# What = The Result
-
-**What do you do? The result of Why. Proof**
-
-> Simon Sinek: Every origanization on the planet knows WHAT they do. These are products they sell or the services they offer.
-> Apple: We make computers
+source: https://en.wikipedia.org/wiki/Flashcard
