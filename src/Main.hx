@@ -1,70 +1,88 @@
-package;
+import haxe.Json;
+import haxe.io.Path;
 
-import js.Browser.*;
-import js.Browser;
-import js.html.*;
+using StringTools;
 
-import model.constants.App;
-
-/**
- * @author Matthijs Kamstra aka [mck]
- * MIT
- * 
- */
 class Main {
-	
-	var container : js.html.DivElement;
+	public function new() {
+		log('Main');
 
-	public function new () {
-		trace( "Hello 'Example Javascript'" );
-	}
-	
-	function init() {
-		document.addEventListener("DOMContentLoaded", function(event) {
-			console.log('${App.NAME} Dom ready :: build: ${App.getBuildDate()} ');
+		// log(Sys.getCwd());
 
-			// var container = document.getElementById("prop");
-			// container.innerHTML = 'html';
+		var path = Path.normalize(Sys.getCwd() + '/docs/data/css-questions.md');
+		// log(path);
 
-			initHTML();
-			loadData();
-		});
+		if (sys.FileSystem.exists(path)) {
+			var str:String = sys.io.File.getContent(path);
+			convertData(str, 'css');
+		} else {
+			log('ERROR: there is not file: $path');
+		}
 	}
 
-	function initHTML () {
-		container = document.createDivElement();
-		container.id = "example_javascript";
-		container.className = "container";
-		document.body.appendChild(container);
-
-		var h1 = document.createElement('h1');
-		h1.innerText = "Example Javascript";
-		container.appendChild(h1);
+	function cleanQ(str:String):String {
+		str = str.replace('###', '').trim();
+		return str;
 	}
 
-	function loadData(){
-		var url = 'http://ip.jsontest.com/';
-		var req = new haxe.Http(url);
-		// req.setHeader('Content-Type', 'application/json');
-		// req.setHeader('auth', '${App.TOKEN}');
-		req.onData = function (data : String) {
-			try {
-				var json = haxe.Json.parse(data);
-				trace (json);
-			} catch (e:Dynamic){
-				trace(e);
+	function convertData(str:String, label:String) {
+		log(str);
+
+		var arr:Array<FlashCardObj> = [];
+
+		var qString = '\n### '; // ### What does a DOCTYPE do?
+		var qaArray = str.split(qString);
+		for (i in 0...qaArray.length) {
+			var txt = qaArray[i];
+			// log(txt);
+			var title = cleanQ(txt).split('\n')[0].trim();
+			var content = txt.split(title)[1].trim();
+			// if (title == '' || title == null)
+			// 	continue;
+			log('${i + 1} - Q: "${title}"');
+			log('${i + 1} - A: "${content.trim()}"\n');
+
+			var fc:FlashCardObj = {
+				_id: title.replace(' ', '-'),
+				label: label,
+				question: title,
+				answer: content,
+				markdown: {
+					question: title,
+					answer: content,
+				},
+				html: {
+					question: Markdown.markdownToHtml(title),
+					answer: Markdown.markdownToHtml(content),
+				}
 			}
+			arr.push(fc);
 		}
-		req.onError = function (error : String) {
-			trace('error: $error');
-		}
-		req.onStatus = function (status : Int) {
-			trace('status: $status');
-		}
-		req.request(true);  // false=GET, true=POST
+		log('total:${arr.length}');
+
+		sys.io.File.saveContent('test.json', Json.stringify(arr));
 	}
 
-	static public function main () {
-		var app = new Main ();
+	inline function log(str:Dynamic) {
+		Sys.println(str);
+	}
+
+	static public function main() {
+		var app = new Main();
+	}
+}
+
+typedef FlashCardObj = {
+	@:optional var _id:String;
+	var label:String;
+	var question:String;
+	var answer:String;
+	var markdown:{
+		question:String,
+		answer:String,
+	}
+	var html:{
+		question:String,
+		answer:String,
 	}
 }
