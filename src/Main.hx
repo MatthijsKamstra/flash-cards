@@ -1,3 +1,4 @@
+import model.constants.App;
 import haxe.Json;
 import haxe.io.Path;
 
@@ -5,7 +6,7 @@ using StringTools;
 
 class Main {
 	public function new() {
-		log('Main');
+		log('${App.NAME} Dom ready :: build: ${App.getBuildDate()} ');
 
 		// log(Sys.getCwd());
 
@@ -60,7 +61,8 @@ class Main {
 		}
 		log('total:${arr.length}');
 
-		sys.io.File.saveContent('test.json', Json.stringify(arr));
+		var path = Path.normalize(Sys.getCwd() + '/docs/data/css.json');
+		sys.io.File.saveContent(path, Json.stringify(arr));
 	}
 
 	inline function log(str:Dynamic) {
@@ -69,20 +71,5 @@ class Main {
 
 	static public function main() {
 		var app = new Main();
-	}
-}
-
-typedef FlashCardObj = {
-	@:optional var _id:String;
-	var label:String;
-	var question:String;
-	var answer:String;
-	var markdown:{
-		question:String,
-		answer:String,
-	}
-	var html:{
-		question:String,
-		answer:String,
 	}
 }

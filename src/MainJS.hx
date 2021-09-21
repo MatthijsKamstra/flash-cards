@@ -1,5 +1,6 @@
 package;
 
+import AST.FlashCardObj;
 import js.Browser.*;
 import js.Browser;
 import js.html.*;
@@ -10,11 +11,12 @@ import model.constants.App;
  * MIT
  *
  */
-class Main {
+class MainJS {
 	var container:js.html.DivElement;
 
 	public function new() {
 		trace("Hello 'Example Javascript'");
+		init();
 	}
 
 	function init() {
@@ -41,13 +43,13 @@ class Main {
 	}
 
 	function loadData() {
-		var url = 'http://ip.jsontest.com/';
+		var url = 'data/css.json';
+
+		// var url = 'http://ip.jsontest.com/';
 		var req = new haxe.Http(url);
-		// req.setHeader('Content-Type', 'application/json');
-		// req.setHeader('auth', '${App.TOKEN}');
 		req.onData = function(data:String) {
 			try {
-				var json = haxe.Json.parse(data);
+				var json:Array<FlashCardObj> = haxe.Json.parse(data);
 				trace(json);
 			} catch (e:Dynamic) {
 				trace(e);
@@ -59,10 +61,10 @@ class Main {
 		req.onStatus = function(status:Int) {
 			trace('status: $status');
 		}
-		req.request(true); // false=GET, true=POST
+		req.request(false); // false=GET, true=POST
 	}
 
 	static public function main() {
-		var app = new Main();
+		var app = new MainJS();
 	}
 }
