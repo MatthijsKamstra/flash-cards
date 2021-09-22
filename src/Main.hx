@@ -1,3 +1,4 @@
+import AST.FlashCardObj;
 import model.constants.App;
 import haxe.Json;
 import haxe.io.Path;
@@ -8,14 +9,22 @@ class Main {
 	public function new() {
 		log('${App.NAME} Dom ready :: build: ${App.getBuildDate()} ');
 
+		var css = Path.normalize(Sys.getCwd() + '/docs/data/css-questions.md');
+		var js = Path.normalize(Sys.getCwd() + '/docs/data/javascript-questions.md');
+		var html = Path.normalize(Sys.getCwd() + '/docs/data/html-questions.md');
 		// log(Sys.getCwd());
 
-		var path = Path.normalize(Sys.getCwd() + '/docs/data/css-questions.md');
-		// log(path);
+		getData(css, 'css');
+		getData(js, 'js');
+		getData(html, 'html');
+	}
+
+	function getData(path, label:String) {
+		log(path);
 
 		if (sys.FileSystem.exists(path)) {
 			var str:String = sys.io.File.getContent(path);
-			convertData(str, 'css');
+			convertData(str, label);
 		} else {
 			log('ERROR: there is not file: $path');
 		}
@@ -27,7 +36,7 @@ class Main {
 	}
 
 	function convertData(str:String, label:String) {
-		log(str);
+		// log(str);
 
 		var arr:Array<FlashCardObj> = [];
 
@@ -40,8 +49,9 @@ class Main {
 			var content = txt.split(title)[1].trim();
 			// if (title == '' || title == null)
 			// 	continue;
-			log('${i + 1} - Q: "${title}"');
-			log('${i + 1} - A: "${content.trim()}"\n');
+
+			// log('${i + 1} - Q: "${title}"');
+			// log('${i + 1} - A: "${content.trim()}"\n');
 
 			var fc:FlashCardObj = {
 				_id: title.replace(' ', '-'),
@@ -59,9 +69,9 @@ class Main {
 			}
 			arr.push(fc);
 		}
-		log('total:${arr.length}');
+		log('"${label}"" total: ${arr.length}');
 
-		var path = Path.normalize(Sys.getCwd() + '/docs/data/css.json');
+		var path = Path.normalize(Sys.getCwd() + '/docs/data/${label}.json');
 		sys.io.File.saveContent(path, Json.stringify(arr));
 	}
 

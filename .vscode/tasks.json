@@ -16,11 +16,23 @@
 				"$haxe-error",
 				"$haxe-trace"
 			],
+			"group": "build",
+			"label": "haxe: build-js.hxml"
+		},
+		{
+			"type": "hxml",
+			"file": "build-interp.hxml",
+			"problemMatcher": [
+				"$haxe-absolute",
+				"$haxe",
+				"$haxe-error",
+				"$haxe-trace"
+			],
 			"group": {
 				"kind": "build",
 				"isDefault": true
 			},
-			"label": "haxe: build-js.hxml"
+			"label": "haxe: build-interp.hxml"
 		}
 	]
 }
