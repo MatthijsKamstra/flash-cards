@@ -35,9 +35,8 @@ Lambda.exists = function(it,f) {
 var MainJS = function() {
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-09-22 21:53:36" + " ");
+		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-09-22 21:56:58" + " ");
 		_gthis.setupNav();
-		_gthis.initHTML();
 		_gthis.loadData();
 	});
 };
@@ -60,15 +59,8 @@ MainJS.prototype = {
 		btnJS.onclick = function() {
 			_gthis.loadJson("data/js.json");
 		};
-	}
-	,initHTML: function() {
-		this.container = window.document.createElement("div");
-		this.container.id = "example_javascript";
-		this.container.className = "container";
-		window.document.body.appendChild(this.container);
-		var h1 = window.document.createElement("h1");
-		h1.innerText = "Example Javascript";
-		this.container.appendChild(h1);
+		btnCSS.classList.add("active");
+		this.loadJson("data/css.json");
 	}
 	,loadData: function() {
 		var url = "data/css.json";
@@ -76,17 +68,17 @@ MainJS.prototype = {
 		req.onData = function(data) {
 			try {
 				var json = JSON.parse(data);
-				console.log("src/MainJS.hx:60:",json);
+				console.log("src/MainJS.hx:63:",json);
 			} catch( _g ) {
 				var e = haxe_Exception.caught(_g).unwrap();
-				console.log("src/MainJS.hx:62:",e);
+				console.log("src/MainJS.hx:65:",e);
 			}
 		};
 		req.onError = function(error) {
-			console.log("src/MainJS.hx:66:","error: " + error);
+			console.log("src/MainJS.hx:69:","error: " + error);
 		};
 		req.onStatus = function(status) {
-			console.log("src/MainJS.hx:69:","status: " + status);
+			console.log("src/MainJS.hx:72:","status: " + status);
 		};
 		req.request(false);
 	}
@@ -95,17 +87,17 @@ MainJS.prototype = {
 		req.onData = function(data) {
 			try {
 				var json = JSON.parse(data);
-				console.log("src/MainJS.hx:79:",json);
+				console.log("src/MainJS.hx:82:",json);
 			} catch( _g ) {
 				var e = haxe_Exception.caught(_g).unwrap();
-				console.log("src/MainJS.hx:81:",e);
+				console.log("src/MainJS.hx:84:",e);
 			}
 		};
 		req.onError = function(error) {
-			console.log("src/MainJS.hx:85:","error: " + error);
+			console.log("src/MainJS.hx:88:","error: " + error);
 		};
 		req.onStatus = function(status) {
-			console.log("src/MainJS.hx:88:","status: " + status);
+			console.log("src/MainJS.hx:91:","status: " + status);
 		};
 		req.request(false);
 	}

@@ -23,7 +23,7 @@ class MainJS {
 
 			setupNav();
 
-			initHTML();
+			// initHTML();
 			loadData();
 		});
 	}
@@ -36,6 +36,9 @@ class MainJS {
 		btnCSS.onclick = () -> loadJson('data/css.json');
 		btnHTML.onclick = () -> loadJson('data/html.json');
 		btnJS.onclick = () -> loadJson('data/js.json');
+
+		btnCSS.classList.add('active');
+		loadJson('data/css.json');
 	}
 
 	function initHTML() {
