@@ -1,5 +1,6 @@
 package;
 
+import js.Syntax;
 import AST.FlashCardObj;
 import js.Browser.*;
 import js.Browser;
@@ -12,20 +13,122 @@ import model.constants.App;
  *
  */
 class MainJS {
-	var container:js.html.DivElement;
+	// buttons
+	var btnCorrect:AnchorElement;
+	var btnWrong:AnchorElement;
+	var btnNotsure:AnchorElement;
+	// bootstrap collapse
+	var myCollapsible:Dynamic;
+	var bsCollapse:Dynamic;
+	// Q andd A
+	var q:ButtonElement;
+	var a:DivElement;
 
 	public function new() {
 		document.addEventListener("DOMContentLoaded", function(event) {
 			console.log('${App.NAME} Dom ready :: build: ${App.getBuildDate()} ');
 
-			// var container = document.getElementById("prop");
-			// container.innerHTML = 'html';
-
+			init();
+			setupQ();
 			setupNav();
-
-			// initHTML();
-			loadData();
+			loadJson('data/css.json');
 		});
+	}
+
+	function setupQ() {
+		q = cast document.getElementById('js-flashcard-q');
+		a = cast document.getElementById('js-flashcard-a');
+
+		q.innerHTML = 'Q';
+		a.innerText = 'A';
+	}
+
+	function init() {
+		window.onkeydown = _keyDown;
+
+		// collapse
+		myCollapsible = document.getElementById('flush-collapseOne');
+		// setup collapse
+		bsCollapse = js.Syntax.code("new bootstrap.Collapse({0},{
+			toggle: false,
+		})", myCollapsible);
+
+		// myCollapsible.addEventListener('show.bs.collapse', function() {
+		// 	console.log('show.bs.collapse');
+		// });
+		// myCollapsible.addEventListener('hidden.bs.collapse', function() {
+		// 	console.log('hidden.bs.collapse');
+		// });
+
+		// buttons actions
+		btnCorrect = cast document.getElementById("js-btn-correct");
+		btnWrong = cast document.getElementById("js-btn-wrong");
+		btnNotsure = cast document.getElementById("js-btn-not-sure");
+		btnCorrect.onclick = () -> {
+			trace('correct');
+		}
+		btnWrong.onclick = () -> {
+			trace('wrong');
+		}
+		btnNotsure.onclick = () -> {
+			trace('not sure');
+		}
+	}
+
+	function collapseQ() {
+		trace('collapseQ');
+		bsCollapse.hide();
+	}
+
+	function openQ() {
+		trace('openQ');
+		bsCollapse.show();
+	}
+
+	function _keyDown(e:js.html.KeyboardEvent) {
+		// console.log(e);
+		// console.log('ctrl: ' + e.ctrlKey);
+		// console.log('meta: ' + e.metaKey);
+
+		// with command key
+		if (e.metaKey == true) {
+			switch (e.key) {
+				case "ArrowUp":
+					// trace("close answer");
+					collapseQ();
+				case "ArrowDown":
+					// trace("open answer");
+					openQ();
+				case "ArrowLeft":
+					trace("choose good");
+				case "ArrowRight":
+					trace("choose wrong");
+				default:
+					// trace("case '" + e.key + "': trace ('" + e.key + "');");
+			}
+		}
+		if (e.metaKey == false) {
+			switch (e.key) {
+				case "ArrowUp":
+					// trace("close answer");
+					collapseQ();
+				case "ArrowDown":
+					// trace("open answer");
+					openQ();
+				// case "ArrowLeft":
+				// 	trace("choose good");
+				// case "ArrowRight":
+				// 	trace("choose wrong");
+				default:
+					// trace("case '" + e.key + "': trace ('" + e.key + "');");
+			}
+		}
+
+		// if (e.metaKey == true && e.key == 'r') {
+		// 	console.log('[cmd + r] = reload page');
+		// 	// reload
+		// 	location.reload();
+		// }
 	}
 
 	function setupNav() {
@@ -41,45 +144,20 @@ class MainJS {
 		loadJson('data/css.json');
 	}
 
-	function initHTML() {
-		container = document.createDivElement();
-		container.id = "example_javascript";
-		container.className = "container";
-		document.body.appendChild(container);
+	var arr:Array<FlashCardObj>;
 
-		var h1 = document.createElement('h1');
-		h1.innerText = "Example Javascript";
-		container.appendChild(h1);
-	}
-
-	function loadData() {
-		var url = 'data/css.json';
-
-		// var url = 'http://ip.jsontest.com/';
-		var req = new haxe.Http(url);
-		req.onData = function(data:String) {
-			try {
-				var json:Array<FlashCardObj> = haxe.Json.parse(data);
-				trace(json);
-			} catch (e:Dynamic) {
-				trace(e);
-			}
-		}
-		req.onError = function(error:String) {
-			trace('error: $error');
-		}
-		req.onStatus = function(status:Int) {
-			trace('status: $status');
-		}
-		req.request(false); // false=GET, true=POST
+	function setupQAndA() {
+		var flashCard:FlashCardObj = arr[0];
+		q.innerHTML = flashCard.question;
+		a.innerHTML = flashCard.html.answer;
 	}
 
 	function loadJson(url:String) {
 		var req = new haxe.Http(url);
 		req.onData = function(data:String) {
 			try {
-				var json:Array<FlashCardObj> = haxe.Json.parse(data);
-				trace(json);
+				arr = haxe.Json.parse(data);
+				setupQAndA();
 			} catch (e:Dynamic) {
 				trace(e);
 			}

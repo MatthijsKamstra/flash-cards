@@ -11,9 +11,27 @@
 - [x] create nav
 - [x] nav button to js
 - [x] bootstrap implementatie
-- [ ] key to vote
-- [ ] key to skip
-- [ ] key to nav
-- [ ] button wrong
-- [ ] button correct
-- [ ] button open
+- [x] key to vote
+- [x] key to skip
+- [x] key to nav
+- [x] button wrong
+- [x] button correct
+- [x] button open
+- [x] toggle question open with key
+- [x] toggle question close with key
+- [x] toggle question close
+
+---
+
+- good/correct: ✅ 👌 👍
+- wrong/fault: ❌ 👎
+- not sure: ❓
+
+```html
+<!-- reference any Ficon you'd like -->
+<i class="fa fa-magic"></i>
+```
+
+- `fa-check`
+- `fa-close`
+- `fa-circle`
