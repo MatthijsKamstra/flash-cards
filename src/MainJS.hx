@@ -7,6 +7,8 @@ import js.Browser;
 import js.html.*;
 import model.constants.App;
 
+using StringTools;
+
 /**
  * @author Matthijs Kamstra aka [mck]
  * MIT
@@ -45,6 +47,7 @@ class MainJS {
 
 	function init() {
 		window.onkeydown = _keyDown;
+		window.onkeyup = _keyUp;
 
 		// collapse
 		myCollapsible = document.getElementById('flush-collapseOne');
@@ -85,6 +88,27 @@ class MainJS {
 		bsCollapse.show();
 	}
 
+	function hightlightBtn(isHightlighted:Bool = false) {
+		if (isHightlighted) {
+			btnCorrect.classList.add('btn-outline-success');
+			btnWrong.classList.add('btn-outline-danger');
+			btnCorrect.classList.remove('btn-outline-dark');
+			btnWrong.classList.remove('btn-outline-dark');
+		} else {
+			btnCorrect.classList.add('btn-outline-dark');
+			btnWrong.classList.add('btn-outline-dark');
+			btnCorrect.classList.remove('btn-outline-success');
+			btnWrong.classList.remove('btn-outline-danger');
+		}
+	}
+
+	function _keyUp(e:js.html.KeyboardEvent) {
+		trace(e);
+		if (e.key == "Meta") {
+			hightlightBtn(false);
+		}
+	}
+
 	function _keyDown(e:js.html.KeyboardEvent) {
 		// console.log(e);
 		// console.log('ctrl: ' + e.ctrlKey);
@@ -103,6 +127,9 @@ class MainJS {
 					trace("choose good");
 				case "ArrowRight":
 					trace("choose wrong");
+				case 'Meta':
+					trace('Meta');
+					hightlightBtn(true);
 				default:
 					// trace("case '" + e.key + "': trace ('" + e.key + "');");
 			}
@@ -148,7 +175,7 @@ class MainJS {
 
 	function setupQAndA() {
 		var flashCard:FlashCardObj = arr[0];
-		q.innerHTML = flashCard.question;
+		q.innerHTML = flashCard.html.question.replace('<p>', '').replace('</p>', '');
 		a.innerHTML = flashCard.html.answer;
 	}
 
