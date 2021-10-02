@@ -36,7 +36,7 @@ Lambda.exists = function(it,f) {
 var MainJS = function() {
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-02 08:45:49" + " ");
+		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-02 10:01:29" + " ");
 		_gthis.init();
 		_gthis.setupNav();
 		_gthis.loadJson("data/css.json");
@@ -48,8 +48,8 @@ MainJS.main = function() {
 };
 MainJS.prototype = {
 	init: function() {
-		window.onkeydown = $bind(this,this._keyDown);
-		window.onkeyup = $bind(this,this._keyUp);
+		window.onkeydown = $bind(this,this.onKeyDown);
+		window.onkeyup = $bind(this,this.onKeyUp);
 		this.myCollapsible = window.document.getElementById("flush-collapseOne");
 		this.bsCollapse = new bootstrap.Collapse(this.myCollapsible,{
 			toggle: false,
@@ -57,23 +57,30 @@ MainJS.prototype = {
 		this.btnCorrect = window.document.getElementById("js-btn-correct");
 		this.btnWrong = window.document.getElementById("js-btn-wrong");
 		this.btnNotsure = window.document.getElementById("js-btn-not-sure");
-		this.btnCorrect.onclick = function() {
-			console.log("src/MainJS.hx:64:","correct");
-		};
-		this.btnWrong.onclick = function() {
-			console.log("src/MainJS.hx:67:","wrong");
-		};
-		this.btnNotsure.onclick = function() {
-			console.log("src/MainJS.hx:70:","not sure");
-		};
+		this.btnCorrect.onclick = $bind(this,this.onChooseGood);
+		this.btnWrong.onclick = $bind(this,this.onChooseWrong);
+		this.btnNotsure.onclick = $bind(this,this.onChooseSkip);
 		this.q = window.document.getElementById("js-flashcard-q");
 		this.a = window.document.getElementById("js-flashcard-a");
 		this.q.innerHTML = "Q";
 		this.a.innerText = "A";
+		console.log("src/MainJS.hx:73:",window.document.hasFocus());
+		if(!window.document.hasFocus()) {
+			this.setupToast("You need to focus this document to use keyboard shortcuts");
+		}
 	}
-	,setupQAndA: function() {
-		var r = Math.round(Math.random() * this.arr.length);
-		var flashCard = this.arr[r];
+	,setupToast: function(msg) {
+		var toastLiveExample = window.document.getElementById("js-toast");
+		var content = window.document.getElementById("js-toast__body");
+		content.innerHTML = msg;
+		var toast = new bootstrap.Toast(toastLiveExample);
+		toast.show();
+	}
+	,setupQAndA: function(nr) {
+		if(nr == null) {
+			nr = Math.round(Math.random() * this.arr.length);
+		}
+		var flashCard = this.arr[nr];
 		var tmp = StringTools.replace(flashCard.html.question,"<p>","");
 		this.q.innerHTML = StringTools.replace(tmp,"</p>","");
 		this.a.innerHTML = flashCard.html.answer;
@@ -100,6 +107,21 @@ MainJS.prototype = {
 	,onOpenQ: function() {
 		this.bsCollapse.show();
 	}
+	,nextQ: function() {
+		this.setupQAndA();
+	}
+	,onChooseGood: function() {
+		console.log("src/MainJS.hx:130:","good");
+		this.nextQ();
+	}
+	,onChooseWrong: function() {
+		console.log("src/MainJS.hx:135:","wrong");
+		this.nextQ();
+	}
+	,onChooseSkip: function() {
+		console.log("src/MainJS.hx:142:","skip");
+		this.nextQ();
+	}
 	,hightlightBtn: function(isHightlighted) {
 		if(isHightlighted == null) {
 			isHightlighted = false;
@@ -116,29 +138,27 @@ MainJS.prototype = {
 			this.btnWrong.classList.remove("btn-outline-danger");
 		}
 	}
-	,_keyUp: function(e) {
-		console.log("src/MainJS.hx:131:",e);
+	,onKeyUp: function(e) {
 		if(e.key == "Meta") {
 			this.hightlightBtn(false);
 		}
 	}
-	,_keyDown: function(e) {
+	,onKeyDown: function(e) {
 		if(e.metaKey == true) {
 			switch(e.key) {
 			case "ArrowDown":
 				this.onOpenQ();
 				break;
 			case "ArrowLeft":
-				console.log("src/MainJS.hx:152:","choose good");
+				this.onChooseWrong();
 				break;
 			case "ArrowRight":
-				console.log("src/MainJS.hx:154:","choose wrong");
+				this.onChooseGood();
 				break;
 			case "ArrowUp":
 				this.onCollapseQ();
 				break;
 			case "Meta":
-				console.log("src/MainJS.hx:156:","Meta");
 				this.hightlightBtn(true);
 				break;
 			default:
@@ -165,14 +185,14 @@ MainJS.prototype = {
 				_gthis.setupQAndA();
 			} catch( _g ) {
 				var e = haxe_Exception.caught(_g).unwrap();
-				console.log("src/MainJS.hx:195:",e);
+				console.log("src/MainJS.hx:229:",e);
 			}
 		};
 		req.onError = function(error) {
-			console.log("src/MainJS.hx:199:","error: " + error);
+			console.log("src/MainJS.hx:233:","error: " + error);
 		};
 		req.onStatus = function(status) {
-			console.log("src/MainJS.hx:202:","status: " + status);
+			console.log("src/MainJS.hx:236:","status: " + status);
 		};
 		req.request(false);
 	}

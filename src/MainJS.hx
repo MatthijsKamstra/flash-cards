@@ -25,7 +25,7 @@ class MainJS {
 	// Q andd A
 	var q:ButtonElement;
 	var a:DivElement;
-	//
+	// arr with flash cards info
 	var arr:Array<FlashCardObj>;
 
 	public function new() {
@@ -34,17 +34,17 @@ class MainJS {
 
 			init();
 			setupNav();
-			loadJson('data/css.json');
+			loadJson('data/css.json'); // start with css
 		});
 	}
 
 	function init() {
+		// setup listen to keys
 		window.onkeydown = onKeyDown;
 		window.onkeyup = onKeyUp;
 
-		// collapse
-		myCollapsible = document.getElementById('flush-collapseOne');
 		// setup collapse
+		myCollapsible = document.getElementById('flush-collapseOne');
 		bsCollapse = js.Syntax.code("new bootstrap.Collapse({0},{
 			toggle: false,
 		})", myCollapsible);
@@ -56,31 +56,42 @@ class MainJS {
 		// 	console.log('hidden.bs.collapse');
 		// });
 
-		// buttons actions
+		// setup buttons
 		btnCorrect = cast document.getElementById("js-btn-correct");
 		btnWrong = cast document.getElementById("js-btn-wrong");
 		btnNotsure = cast document.getElementById("js-btn-not-sure");
-		btnCorrect.onclick = () -> {
-			trace('correct');
-		}
-		btnWrong.onclick = () -> {
-			trace('wrong');
-		}
-		btnNotsure.onclick = () -> {
-			trace('not sure');
-		}
+		// clicks
+		btnCorrect.onclick = onChooseGood;
+		btnWrong.onclick = onChooseWrong;
+		btnNotsure.onclick = onChooseSkip;
 
-		// Q and A
+		// setup Q and A
 		q = cast document.getElementById('js-flashcard-q');
 		a = cast document.getElementById('js-flashcard-a');
-
 		q.innerHTML = 'Q';
 		a.innerText = 'A';
+
+		// setup check for focus
+		trace(document.hasFocus());
+		if (!document.hasFocus()) {
+			setupToast('You need to focus this document to use keyboard shortcuts');
+		}
+		// TODO: hide toast when focussed?
 	}
 
-	function setupQAndA() {
-		var r = Math.round(Math.random() * arr.length);
-		var flashCard:FlashCardObj = arr[r];
+	function setupToast(msg:String) {
+		var toastLiveExample = document.getElementById('js-toast');
+		var content = document.getElementById('js-toast__body');
+		content.innerHTML = msg;
+		var toast = Syntax.code("new bootstrap.Toast({0})", toastLiveExample);
+		toast.show();
+	}
+
+	function setupQAndA(nr:Int = null) {
+		if (nr == null) {
+			nr = Math.round(Math.random() * arr.length);
+		}
+		var flashCard:FlashCardObj = arr[nr];
 		q.innerHTML = flashCard.html.question.replace('<p>', '').replace('</p>', '');
 		a.innerHTML = flashCard.html.answer;
 	}
@@ -110,6 +121,31 @@ class MainJS {
 		// trace('onOpenQ');
 		bsCollapse.show();
 	}
+
+	function nextQ() {
+		// close if open, wait for the close, fade out, fade in, new question
+		setupQAndA();
+	}
+
+	function onChooseGood() {
+		// TODO: register good
+		trace('good');
+		nextQ();
+	}
+
+	function onChooseWrong() {
+		trace('wrong');
+		// TODO: register wrong
+		nextQ();
+	}
+
+	function onChooseSkip() {
+		// TODO: register skip
+		trace('skip');
+		nextQ();
+	}
+
+	// ____________________________________ visual feedback ____________________________________
 
 	function hightlightBtn(isHightlighted:Bool = false) {
 		if (isHightlighted) {
@@ -149,11 +185,11 @@ class MainJS {
 					// trace("open answer");
 					onOpenQ();
 				case "ArrowLeft":
-					trace("choose good");
+					onChooseWrong();
 				case "ArrowRight":
-					trace("choose wrong");
+					onChooseGood();
 				case 'Meta':
-					trace('Meta');
+					// trace('Meta');
 					hightlightBtn(true);
 				default:
 					// trace("case '" + e.key + "': trace ('" + e.key + "');");
