@@ -1,5 +1,6 @@
 package;
 
+import js.lib.KeyValue;
 import js.Syntax;
 import AST.FlashCardObj;
 import js.Browser.*;
@@ -25,6 +26,8 @@ class MainJS {
 	// Q andd A
 	var q:ButtonElement;
 	var a:DivElement;
+	//
+	var arr:Array<FlashCardObj>;
 
 	public function new() {
 		document.addEventListener("DOMContentLoaded", function(event) {
@@ -171,10 +174,9 @@ class MainJS {
 		loadJson('data/css.json');
 	}
 
-	var arr:Array<FlashCardObj>;
-
 	function setupQAndA() {
-		var flashCard:FlashCardObj = arr[0];
+		var r = Math.round(Math.random() * arr.length);
+		var flashCard:FlashCardObj = arr[r];
 		q.innerHTML = flashCard.html.question.replace('<p>', '').replace('</p>', '');
 		a.innerHTML = flashCard.html.answer;
 	}

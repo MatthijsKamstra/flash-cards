@@ -35,7 +35,7 @@ Lambda.exists = function(it,f) {
 var MainJS = function() {
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-01 21:21:36" + " ");
+		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-01 23:15:35" + " ");
 		_gthis.init();
 		_gthis.setupQ();
 		_gthis.setupNav();
@@ -64,21 +64,21 @@ MainJS.prototype = {
 		this.btnWrong = window.document.getElementById("js-btn-wrong");
 		this.btnNotsure = window.document.getElementById("js-btn-not-sure");
 		this.btnCorrect.onclick = function() {
-			console.log("src/MainJS.hx:71:","correct");
+			console.log("src/MainJS.hx:74:","correct");
 		};
 		this.btnWrong.onclick = function() {
-			console.log("src/MainJS.hx:74:","wrong");
+			console.log("src/MainJS.hx:77:","wrong");
 		};
 		this.btnNotsure.onclick = function() {
-			console.log("src/MainJS.hx:77:","not sure");
+			console.log("src/MainJS.hx:80:","not sure");
 		};
 	}
 	,collapseQ: function() {
-		console.log("src/MainJS.hx:82:","collapseQ");
+		console.log("src/MainJS.hx:85:","collapseQ");
 		this.bsCollapse.hide();
 	}
 	,openQ: function() {
-		console.log("src/MainJS.hx:87:","openQ");
+		console.log("src/MainJS.hx:90:","openQ");
 		this.bsCollapse.show();
 	}
 	,hightlightBtn: function(isHightlighted) {
@@ -98,7 +98,7 @@ MainJS.prototype = {
 		}
 	}
 	,_keyUp: function(e) {
-		console.log("src/MainJS.hx:106:",e);
+		console.log("src/MainJS.hx:109:",e);
 		if(e.key == "Meta") {
 			this.hightlightBtn(false);
 		}
@@ -110,16 +110,16 @@ MainJS.prototype = {
 				this.openQ();
 				break;
 			case "ArrowLeft":
-				console.log("src/MainJS.hx:127:","choose good");
+				console.log("src/MainJS.hx:130:","choose good");
 				break;
 			case "ArrowRight":
-				console.log("src/MainJS.hx:129:","choose wrong");
+				console.log("src/MainJS.hx:132:","choose wrong");
 				break;
 			case "ArrowUp":
 				this.collapseQ();
 				break;
 			case "Meta":
-				console.log("src/MainJS.hx:131:","Meta");
+				console.log("src/MainJS.hx:134:","Meta");
 				this.hightlightBtn(true);
 				break;
 			default:
@@ -155,7 +155,8 @@ MainJS.prototype = {
 		this.loadJson("data/css.json");
 	}
 	,setupQAndA: function() {
-		var flashCard = this.arr[0];
+		var r = Math.round(Math.random() * this.arr.length);
+		var flashCard = this.arr[r];
 		var tmp = StringTools.replace(flashCard.html.question,"<p>","");
 		this.q.innerHTML = StringTools.replace(tmp,"</p>","");
 		this.a.innerHTML = flashCard.html.answer;
@@ -169,14 +170,14 @@ MainJS.prototype = {
 				_gthis.setupQAndA();
 			} catch( _g ) {
 				var e = haxe_Exception.caught(_g).unwrap();
-				console.log("src/MainJS.hx:189:",e);
+				console.log("src/MainJS.hx:191:",e);
 			}
 		};
 		req.onError = function(error) {
-			console.log("src/MainJS.hx:193:","error: " + error);
+			console.log("src/MainJS.hx:195:","error: " + error);
 		};
 		req.onStatus = function(status) {
-			console.log("src/MainJS.hx:196:","status: " + status);
+			console.log("src/MainJS.hx:198:","status: " + status);
 		};
 		req.request(false);
 	}
