@@ -81,9 +81,9 @@
 	<!-- Begin page content -->
 	<main class="flex-shrink-0 ">
 
-		<div class="container mt-5" style="border: 1px solid pink;">
+		<div class="container mt-5">
 			<div class="row justify-content-center">
-				<div class="col-12 col-md-6">
+				<div class="col-12 col-lg-8">
 
 					<div class="accordion" id="accordionFlushExample">
 						<div class="accordion-item">
@@ -97,10 +97,8 @@
 							<div id="flush-collapseOne" class="accordion-collapse collapse"
 								aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 								<div id="js-flashcard-a" class="accordion-body">Placeholder content for this accordion,
-									which is intended to
-									demonstrate
-									the
-									<code>.accordion-flush</code> class. This is the first item's accordion body.
+									which is intended to demonstrate the <code>.accordion-flush</code> class. This is
+									the first item's accordion body.
 								</div>
 							</div>
 						</div>
@@ -108,18 +106,33 @@
 					</div>
 					<!-- /.accordion -->
 					<div class="l-feedback-container py-2 d-flex justify-content-end">
-						<a href="#" class="btn btn-outline-dark" id='js-btn-correct' title="Correct answer">
-							<i class="fa  fa-1x fa-check"></i></a>
-						<a href="#" class="btn btn-outline-dark mx-1" id='js-btn-not-sure' title="Not sure answer">
-							<i class="fa  fa-1x fa-circle"></i></a>
 						<a href="#" class="btn btn-outline-dark" id='js-btn-wrong' title="Wrong answer">
 							<i class="fa  fa-1x fa-close"></i></a>
+
+						<a href="#" class="btn btn-outline-dark mx-1" id='js-btn-not-sure' title="Not sure answer">
+							<i class="fa  fa-1x fa-circle"></i></a>
+						<a href="#" class="btn btn-outline-dark" id='js-btn-correct' title="Correct answer">
+							<i class="fa  fa-1x fa-check"></i></a>
+
 					</div>
 				</div>
 			</div>
 		</div>
 
+
 	</main>
+
+	<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+		<div id="js-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
+				<div id="js-toast__body" class="toast-body">
+					Hello, world! This is a toast message.
+				</div>
+				<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+
 
 	<footer class="footer mt-auto py-3 bg-light">
 		<div class="container">

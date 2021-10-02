@@ -26,7 +26,7 @@ class MainJS {
 	// Q andd A
 	var q:ButtonElement;
 	var a:DivElement;
-	//
+	// arr with flash cards info
 	var arr:Array<FlashCardObj>;
 
 	public function new() {
@@ -34,27 +34,18 @@ class MainJS {
 			console.log('${App.NAME} Dom ready :: build: ${App.getBuildDate()} ');
 
 			init();
-			setupQ();
 			setupNav();
-			loadJson('data/css.json');
+			loadJson('data/css.json'); // start with css
 		});
 	}
 
-	function setupQ() {
-		q = cast document.getElementById('js-flashcard-q');
-		a = cast document.getElementById('js-flashcard-a');
-
-		q.innerHTML = 'Q';
-		a.innerText = 'A';
-	}
-
 	function init() {
-		window.onkeydown = _keyDown;
-		window.onkeyup = _keyUp;
+		// setup listen to keys
+		window.onkeydown = onKeyDown;
+		window.onkeyup = onKeyUp;
 
-		// collapse
-		myCollapsible = document.getElementById('flush-collapseOne');
 		// setup collapse
+		myCollapsible = document.getElementById('flush-collapseOne');
 		bsCollapse = js.Syntax.code("new bootstrap.Collapse({0},{
 			toggle: false,
 		})", myCollapsible);
@@ -66,30 +57,96 @@ class MainJS {
 		// 	console.log('hidden.bs.collapse');
 		// });
 
-		// buttons actions
+		// setup buttons
 		btnCorrect = cast document.getElementById("js-btn-correct");
 		btnWrong = cast document.getElementById("js-btn-wrong");
 		btnNotsure = cast document.getElementById("js-btn-not-sure");
-		btnCorrect.onclick = () -> {
-			trace('correct');
+		// clicks
+		btnCorrect.onclick = onChooseGood;
+		btnWrong.onclick = onChooseWrong;
+		btnNotsure.onclick = onChooseSkip;
+
+		// setup Q and A
+		q = cast document.getElementById('js-flashcard-q');
+		a = cast document.getElementById('js-flashcard-a');
+		q.innerHTML = 'Q';
+		a.innerText = 'A';
+
+		// setup check for focus
+		trace(document.hasFocus());
+		if (!document.hasFocus()) {
+			setupToast('You need to focus this document to use keyboard shortcuts');
 		}
-		btnWrong.onclick = () -> {
-			trace('wrong');
-		}
-		btnNotsure.onclick = () -> {
-			trace('not sure');
-		}
+		// TODO: hide toast when focussed?
 	}
 
-	function collapseQ() {
-		trace('collapseQ');
+	function setupToast(msg:String) {
+		var toastLiveExample = document.getElementById('js-toast');
+		var content = document.getElementById('js-toast__body');
+		content.innerHTML = msg;
+		var toast = Syntax.code("new bootstrap.Toast({0})", toastLiveExample);
+		toast.show();
+	}
+
+	function setupQAndA(nr:Int = null) {
+		if (nr == null) {
+			nr = Math.round(Math.random() * arr.length);
+		}
+		var flashCard:FlashCardObj = arr[nr];
+		q.innerHTML = flashCard.html.question.replace('<p>', '').replace('</p>', '');
+		a.innerHTML = flashCard.html.answer;
+	}
+
+	function setupNav() {
+		var btnCSS = document.getElementById("btn-css");
+		var btnHTML = document.getElementById("btn-html");
+		var btnJS = document.getElementById("btn-js");
+
+		btnCSS.onclick = () -> loadJson('data/css.json');
+		btnHTML.onclick = () -> loadJson('data/html.json');
+		btnJS.onclick = () -> loadJson('data/js.json');
+
+		// TODO set activa stateds
+
+		btnCSS.classList.add('active');
+	}
+
+	// ____________________________________ actions ____________________________________
+
+	function onCollapseQ() {
+		// trace('onCollapseQ');
 		bsCollapse.hide();
 	}
 
-	function openQ() {
-		trace('openQ');
+	function onOpenQ() {
+		// trace('onOpenQ');
 		bsCollapse.show();
 	}
+
+	function nextQ() {
+		// close if open, wait for the close, fade out, fade in, new question
+		setupQAndA();
+	}
+
+	function onChooseGood() {
+		// TODO: register good
+		trace('good');
+		nextQ();
+	}
+
+	function onChooseWrong() {
+		trace('wrong');
+		// TODO: register wrong
+		nextQ();
+	}
+
+	function onChooseSkip() {
+		// TODO: register skip
+		trace('skip');
+		nextQ();
+	}
+
+	// ____________________________________ visual feedback ____________________________________
 
 	function hightlightBtn(isHightlighted:Bool = false) {
 		if (isHightlighted) {
@@ -105,14 +162,16 @@ class MainJS {
 		}
 	}
 
-	function _keyUp(e:js.html.KeyboardEvent) {
-		trace(e);
+	// ____________________________________ key handlers ____________________________________
+
+	function onKeyUp(e:js.html.KeyboardEvent) {
+		// trace(e);
 		if (e.key == "Meta") {
 			hightlightBtn(false);
 		}
 	}
 
-	function _keyDown(e:js.html.KeyboardEvent) {
+	function onKeyDown(e:js.html.KeyboardEvent) {
 		// console.log(e);
 		// console.log('ctrl: ' + e.ctrlKey);
 		// console.log('meta: ' + e.metaKey);
@@ -122,16 +181,16 @@ class MainJS {
 			switch (e.key) {
 				case "ArrowUp":
 					// trace("close answer");
-					collapseQ();
+					onCollapseQ();
 				case "ArrowDown":
 					// trace("open answer");
-					openQ();
+					onOpenQ();
 				case "ArrowLeft":
-					trace("choose good");
+					onChooseWrong();
 				case "ArrowRight":
-					trace("choose wrong");
+					onChooseGood();
 				case 'Meta':
-					trace('Meta');
+					// trace('Meta');
 					hightlightBtn(true);
 				default:
 					// trace("case '" + e.key + "': trace ('" + e.key + "');");
@@ -141,10 +200,10 @@ class MainJS {
 			switch (e.key) {
 				case "ArrowUp":
 					// trace("close answer");
-					collapseQ();
+					onCollapseQ();
 				case "ArrowDown":
 					// trace("open answer");
-					openQ();
+					onOpenQ();
 				// case "ArrowLeft":
 				// 	trace("choose good");
 				// case "ArrowRight":
@@ -161,25 +220,7 @@ class MainJS {
 		// }
 	}
 
-	function setupNav() {
-		var btnCSS = document.getElementById("btn-css");
-		var btnHTML = document.getElementById("btn-html");
-		var btnJS = document.getElementById("btn-js");
-
-		btnCSS.onclick = () -> loadJson('data/css.json');
-		btnHTML.onclick = () -> loadJson('data/html.json');
-		btnJS.onclick = () -> loadJson('data/js.json');
-
-		btnCSS.classList.add('active');
-		loadJson('data/css.json');
-	}
-
-	function setupQAndA() {
-		var r = Math.round(Math.random() * arr.length);
-		var flashCard:FlashCardObj = arr[r];
-		q.innerHTML = flashCard.html.question.replace('<p>', '').replace('</p>', '');
-		a.innerHTML = flashCard.html.answer;
-	}
+	// ____________________________________ load data ____________________________________
 
 	function loadJson(url:String) {
 		var req = new haxe.Http(url);

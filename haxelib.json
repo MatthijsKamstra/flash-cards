@@ -1,5 +1,5 @@
 {
-  "name": "Example Javascript",
+  "name": "Example-Javascript",
   "url": "https://github.com/MatthijsKamstra",
   "license": "MIT",
   "tags": ["haxe", "generate", "projectTarget"],
@@ -7,5 +7,5 @@
   "version": "0.0.1",
   "classPath": "src",
   "releasenote": "",
-  "contributors": ["Matthijs Kamstra aka [mck]"]
+  "contributors": ["Matthijs-Kamstra"]
 }
