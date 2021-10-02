@@ -25,29 +25,22 @@ class MainJS {
 	// Q andd A
 	var q:ButtonElement;
 	var a:DivElement;
+	//
+	var arr:Array<FlashCardObj>;
 
 	public function new() {
 		document.addEventListener("DOMContentLoaded", function(event) {
 			console.log('${App.NAME} Dom ready :: build: ${App.getBuildDate()} ');
 
 			init();
-			setupQ();
 			setupNav();
 			loadJson('data/css.json');
 		});
 	}
 
-	function setupQ() {
-		q = cast document.getElementById('js-flashcard-q');
-		a = cast document.getElementById('js-flashcard-a');
-
-		q.innerHTML = 'Q';
-		a.innerText = 'A';
-	}
-
 	function init() {
-		window.onkeydown = _keyDown;
-		window.onkeyup = _keyUp;
+		window.onkeydown = onKeyDown;
+		window.onkeyup = onKeyUp;
 
 		// collapse
 		myCollapsible = document.getElementById('flush-collapseOne');
@@ -76,15 +69,45 @@ class MainJS {
 		btnNotsure.onclick = () -> {
 			trace('not sure');
 		}
+
+		// Q and A
+		q = cast document.getElementById('js-flashcard-q');
+		a = cast document.getElementById('js-flashcard-a');
+
+		q.innerHTML = 'Q';
+		a.innerText = 'A';
 	}
 
-	function collapseQ() {
-		trace('collapseQ');
+	function setupQAndA() {
+		var r = Math.round(Math.random() * arr.length);
+		var flashCard:FlashCardObj = arr[r];
+		q.innerHTML = flashCard.html.question.replace('<p>', '').replace('</p>', '');
+		a.innerHTML = flashCard.html.answer;
+	}
+
+	function setupNav() {
+		var btnCSS = document.getElementById("btn-css");
+		var btnHTML = document.getElementById("btn-html");
+		var btnJS = document.getElementById("btn-js");
+
+		btnCSS.onclick = () -> loadJson('data/css.json');
+		btnHTML.onclick = () -> loadJson('data/html.json');
+		btnJS.onclick = () -> loadJson('data/js.json');
+
+		// TODO set activa stateds
+
+		btnCSS.classList.add('active');
+	}
+
+	// ____________________________________ actions ____________________________________
+
+	function onCollapseQ() {
+		// trace('onCollapseQ');
 		bsCollapse.hide();
 	}
 
-	function openQ() {
-		trace('openQ');
+	function onOpenQ() {
+		// trace('onOpenQ');
 		bsCollapse.show();
 	}
 
@@ -102,14 +125,16 @@ class MainJS {
 		}
 	}
 
-	function _keyUp(e:js.html.KeyboardEvent) {
-		trace(e);
+	// ____________________________________ key handlers ____________________________________
+
+	function onKeyUp(e:js.html.KeyboardEvent) {
+		// trace(e);
 		if (e.key == "Meta") {
 			hightlightBtn(false);
 		}
 	}
 
-	function _keyDown(e:js.html.KeyboardEvent) {
+	function onKeyDown(e:js.html.KeyboardEvent) {
 		// console.log(e);
 		// console.log('ctrl: ' + e.ctrlKey);
 		// console.log('meta: ' + e.metaKey);
@@ -119,10 +144,10 @@ class MainJS {
 			switch (e.key) {
 				case "ArrowUp":
 					// trace("close answer");
-					collapseQ();
+					onCollapseQ();
 				case "ArrowDown":
 					// trace("open answer");
-					openQ();
+					onOpenQ();
 				case "ArrowLeft":
 					trace("choose good");
 				case "ArrowRight":
@@ -138,10 +163,10 @@ class MainJS {
 			switch (e.key) {
 				case "ArrowUp":
 					// trace("close answer");
-					collapseQ();
+					onCollapseQ();
 				case "ArrowDown":
 					// trace("open answer");
-					openQ();
+					onOpenQ();
 				// case "ArrowLeft":
 				// 	trace("choose good");
 				// case "ArrowRight":
@@ -158,26 +183,7 @@ class MainJS {
 		// }
 	}
 
-	function setupNav() {
-		var btnCSS = document.getElementById("btn-css");
-		var btnHTML = document.getElementById("btn-html");
-		var btnJS = document.getElementById("btn-js");
-
-		btnCSS.onclick = () -> loadJson('data/css.json');
-		btnHTML.onclick = () -> loadJson('data/html.json');
-		btnJS.onclick = () -> loadJson('data/js.json');
-
-		btnCSS.classList.add('active');
-		loadJson('data/css.json');
-	}
-
-	var arr:Array<FlashCardObj>;
-
-	function setupQAndA() {
-		var flashCard:FlashCardObj = arr[0];
-		q.innerHTML = flashCard.html.question.replace('<p>', '').replace('</p>', '');
-		a.innerHTML = flashCard.html.answer;
-	}
+	// ____________________________________ load data ____________________________________
 
 	function loadJson(url:String) {
 		var req = new haxe.Http(url);
