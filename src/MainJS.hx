@@ -1,5 +1,6 @@
 package;
 
+import haxe.Timer;
 import js.Syntax;
 import AST.FlashCardObj;
 import js.Browser.*;
@@ -124,7 +125,8 @@ class MainJS {
 
 	function nextQ() {
 		// close if open, wait for the close, fade out, fade in, new question
-		setupQAndA();
+		onCollapseQ();
+		Timer.delay(() -> setupQAndA(), 400);
 	}
 
 	function onChooseGood() {

@@ -36,7 +36,7 @@ Lambda.exists = function(it,f) {
 var MainJS = function() {
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-02 10:01:29" + " ");
+		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-02 10:46:52" + " ");
 		_gthis.init();
 		_gthis.setupNav();
 		_gthis.loadJson("data/css.json");
@@ -64,7 +64,7 @@ MainJS.prototype = {
 		this.a = window.document.getElementById("js-flashcard-a");
 		this.q.innerHTML = "Q";
 		this.a.innerText = "A";
-		console.log("src/MainJS.hx:73:",window.document.hasFocus());
+		console.log("src/MainJS.hx:76:",window.document.hasFocus());
 		if(!window.document.hasFocus()) {
 			this.setupToast("You need to focus this document to use keyboard shortcuts");
 		}
@@ -108,18 +108,22 @@ MainJS.prototype = {
 		this.bsCollapse.show();
 	}
 	,nextQ: function() {
-		this.setupQAndA();
+		var _gthis = this;
+		this.onCollapseQ();
+		haxe_Timer.delay(function() {
+			_gthis.setupQAndA();
+		},400);
 	}
 	,onChooseGood: function() {
-		console.log("src/MainJS.hx:130:","good");
+		console.log("src/MainJS.hx:134:","good");
 		this.nextQ();
 	}
 	,onChooseWrong: function() {
-		console.log("src/MainJS.hx:135:","wrong");
+		console.log("src/MainJS.hx:139:","wrong");
 		this.nextQ();
 	}
 	,onChooseSkip: function() {
-		console.log("src/MainJS.hx:142:","skip");
+		console.log("src/MainJS.hx:146:","skip");
 		this.nextQ();
 	}
 	,hightlightBtn: function(isHightlighted) {
@@ -185,14 +189,14 @@ MainJS.prototype = {
 				_gthis.setupQAndA();
 			} catch( _g ) {
 				var e = haxe_Exception.caught(_g).unwrap();
-				console.log("src/MainJS.hx:229:",e);
+				console.log("src/MainJS.hx:233:",e);
 			}
 		};
 		req.onError = function(error) {
-			console.log("src/MainJS.hx:233:","error: " + error);
+			console.log("src/MainJS.hx:237:","error: " + error);
 		};
 		req.onStatus = function(status) {
-			console.log("src/MainJS.hx:236:","status: " + status);
+			console.log("src/MainJS.hx:240:","status: " + status);
 		};
 		req.request(false);
 	}
@@ -265,6 +269,32 @@ haxe_Exception.prototype = $extend(Error.prototype,{
 		return this.__nativeException;
 	}
 });
+var haxe_Timer = function(time_ms) {
+	var me = this;
+	this.id = setInterval(function() {
+		me.run();
+	},time_ms);
+};
+haxe_Timer.__name__ = true;
+haxe_Timer.delay = function(f,time_ms) {
+	var t = new haxe_Timer(time_ms);
+	t.run = function() {
+		t.stop();
+		f();
+	};
+	return t;
+};
+haxe_Timer.prototype = {
+	stop: function() {
+		if(this.id == null) {
+			return;
+		}
+		clearInterval(this.id);
+		this.id = null;
+	}
+	,run: function() {
+	}
+};
 var haxe_ValueException = function(value,previous,native) {
 	haxe_Exception.call(this,String(value),previous,native);
 	this.value = value;
