@@ -20,6 +20,16 @@
 - [x] toggle question open with key
 - [x] toggle question close with key
 - [x] toggle question close
+- [x] delay next question
+- [ ] keep score
+- [ ] keep id in local storage
+- [ ] keep wrong
+- [ ] keep correct
+- [ ] show next question based upon
+  - [ ] not shown yet
+  - [ ] wrong
+  - [ ] least shown
+  - [ ] random
 
 ---
 

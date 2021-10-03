@@ -1,6 +1,6 @@
 package;
 
-import js.lib.KeyValue;
+import haxe.Timer;
 import js.Syntax;
 import AST.FlashCardObj;
 import js.Browser.*;
@@ -20,6 +20,9 @@ class MainJS {
 	var btnCorrect:AnchorElement;
 	var btnWrong:AnchorElement;
 	var btnNotsure:AnchorElement;
+	var btnCSS:Element;
+	var btnHTML:Element;
+	var btnJS:Element;
 	// bootstrap collapse
 	var myCollapsible:Dynamic;
 	var bsCollapse:Dynamic;
@@ -98,17 +101,43 @@ class MainJS {
 	}
 
 	function setupNav() {
-		var btnCSS = document.getElementById("btn-css");
-		var btnHTML = document.getElementById("btn-html");
-		var btnJS = document.getElementById("btn-js");
+		btnCSS = document.getElementById("btn-css");
+		btnHTML = document.getElementById("btn-html");
+		btnJS = document.getElementById("btn-js");
 
-		btnCSS.onclick = () -> loadJson('data/css.json');
-		btnHTML.onclick = () -> loadJson('data/html.json');
-		btnJS.onclick = () -> loadJson('data/js.json');
+		btnCSS.onclick = () -> {
+			loadJson('data/css.json');
+			toggleNav('css');
+		}
+		btnHTML.onclick = () -> {
+			loadJson('data/html.json');
+			toggleNav('html');
+		}
+		btnJS.onclick = () -> {
+			loadJson('data/js.json');
+			toggleNav('js');
+		}
 
 		// TODO set activa stateds
 
 		btnCSS.classList.add('active');
+	}
+
+	function toggleNav(subject:String) {
+		btnCSS.classList.remove('active');
+		btnHTML.classList.remove('active');
+		btnJS.classList.remove('active');
+
+		switch (subject) {
+			case 'html':
+				btnHTML.classList.add('active');
+			case 'js':
+				btnJS.classList.add('active');
+			case 'css':
+				btnCSS.classList.add('active');
+			default:
+				trace("case '" + subject + "': trace ('" + subject + "');");
+		}
 	}
 
 	// ____________________________________ actions ____________________________________
@@ -125,7 +154,8 @@ class MainJS {
 
 	function nextQ() {
 		// close if open, wait for the close, fade out, fade in, new question
-		setupQAndA();
+		onCollapseQ();
+		Timer.delay(() -> setupQAndA(), 400);
 	}
 
 	function onChooseGood() {
