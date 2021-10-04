@@ -1,5 +1,7 @@
 package;
 
+import haxe.Json;
+import js.lib.Promise;
 import haxe.Timer;
 import js.Syntax;
 import AST.FlashCardObj;
@@ -20,9 +22,11 @@ class MainJS {
 	var btnCorrect:AnchorElement;
 	var btnWrong:AnchorElement;
 	var btnNotsure:AnchorElement;
+	//
 	var btnCSS:Element;
 	var btnHTML:Element;
 	var btnJS:Element;
+	var btnAll:Element;
 	// bootstrap collapse
 	var myCollapsible:Dynamic;
 	var bsCollapse:Dynamic;
@@ -104,6 +108,7 @@ class MainJS {
 		btnCSS = document.getElementById("btn-css");
 		btnHTML = document.getElementById("btn-html");
 		btnJS = document.getElementById("btn-js");
+		btnAll = document.getElementById("btn-all");
 
 		btnCSS.onclick = () -> {
 			loadJson('data/css.json');
@@ -117,6 +122,21 @@ class MainJS {
 			loadJson('data/js.json');
 			toggleNav('js');
 		}
+		btnAll.onclick = () -> {
+			// var promise1 = loadJsonData('data/css.json');
+			// var promise2 = loadJsonData('data/html.json');
+			// var promise3 = loadJsonData('data/js.json');
+
+			// Promise.all([promise1, promise2, promise3])
+			// 	.then(value)
+			// 	.catchError(console.log);
+
+			loadJsonData('data/js.json')
+				.then(console.log)
+				.catchError(console.log);
+
+			toggleNav('all');
+		}
 
 		// TODO set activa stateds
 
@@ -127,6 +147,7 @@ class MainJS {
 		btnCSS.classList.remove('active');
 		btnHTML.classList.remove('active');
 		btnJS.classList.remove('active');
+		btnAll.classList.remove('active');
 
 		switch (subject) {
 			case 'html':
@@ -135,6 +156,8 @@ class MainJS {
 				btnJS.classList.add('active');
 			case 'css':
 				btnCSS.classList.add('active');
+			case 'all':
+				btnAll.classList.add('active');
 			default:
 				trace("case '" + subject + "': trace ('" + subject + "');");
 		}
@@ -251,6 +274,27 @@ class MainJS {
 	}
 
 	// ____________________________________ load data ____________________________________
+	function loadJsonData(filepath) {
+		return new Promise((resolve, reject) -> {
+			var req = new haxe.Http(filepath);
+			req.onData = function(data:String) {
+				try {
+					resolve(Json.parse(data));
+				} catch (err:Dynamic) {
+					trace(err);
+					reject(err);
+				}
+			}
+			req.onError = function(err:String) {
+				trace('error: $err');
+				reject(err);
+			}
+			req.onStatus = function(status:Int) {
+				trace('status: $status');
+			}
+			req.request(false); // false=GET, true=POST
+		});
+	}
 
 	function loadJson(url:String) {
 		var req = new haxe.Http(url);

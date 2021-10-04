@@ -36,7 +36,7 @@ Lambda.exists = function(it,f) {
 var MainJS = function() {
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-03 20:06:31" + " ");
+		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-04 15:07:45" + " ");
 		_gthis.init();
 		_gthis.setupNav();
 		_gthis.loadJson("data/css.json");
@@ -64,7 +64,7 @@ MainJS.prototype = {
 		this.a = window.document.getElementById("js-flashcard-a");
 		this.q.innerHTML = "Q";
 		this.a.innerText = "A";
-		console.log("src/MainJS.hx:79:",window.document.hasFocus());
+		console.log("src/MainJS.hx:83:",window.document.hasFocus());
 		if(!window.document.hasFocus()) {
 			this.setupToast("You need to focus this document to use keyboard shortcuts");
 		}
@@ -90,6 +90,7 @@ MainJS.prototype = {
 		this.btnCSS = window.document.getElementById("btn-css");
 		this.btnHTML = window.document.getElementById("btn-html");
 		this.btnJS = window.document.getElementById("btn-js");
+		this.btnAll = window.document.getElementById("btn-all");
 		this.btnCSS.onclick = function() {
 			_gthis.loadJson("data/css.json");
 			_gthis.toggleNav("css");
@@ -102,13 +103,21 @@ MainJS.prototype = {
 			_gthis.loadJson("data/js.json");
 			_gthis.toggleNav("js");
 		};
+		this.btnAll.onclick = function() {
+			_gthis.loadJsonData("data/js.json").then(($_=$global.console,$bind($_,$_.log))).catch(($_=$global.console,$bind($_,$_.log)));
+			_gthis.toggleNav("all");
+		};
 		this.btnCSS.classList.add("active");
 	}
 	,toggleNav: function(subject) {
 		this.btnCSS.classList.remove("active");
 		this.btnHTML.classList.remove("active");
 		this.btnJS.classList.remove("active");
+		this.btnAll.classList.remove("active");
 		switch(subject) {
+		case "all":
+			this.btnAll.classList.add("active");
+			break;
 		case "css":
 			this.btnCSS.classList.add("active");
 			break;
@@ -119,7 +128,7 @@ MainJS.prototype = {
 			this.btnJS.classList.add("active");
 			break;
 		default:
-			console.log("src/MainJS.hx:139:","case '" + subject + "': trace ('" + subject + "');");
+			console.log("src/MainJS.hx:153:","case '" + subject + "': trace ('" + subject + "');");
 		}
 	}
 	,onCollapseQ: function() {
@@ -136,15 +145,15 @@ MainJS.prototype = {
 		},400);
 	}
 	,onChooseGood: function() {
-		console.log("src/MainJS.hx:163:","good");
+		console.log("src/MainJS.hx:177:","good");
 		this.nextQ();
 	}
 	,onChooseWrong: function() {
-		console.log("src/MainJS.hx:168:","wrong");
+		console.log("src/MainJS.hx:182:","wrong");
 		this.nextQ();
 	}
 	,onChooseSkip: function() {
-		console.log("src/MainJS.hx:175:","skip");
+		console.log("src/MainJS.hx:189:","skip");
 		this.nextQ();
 	}
 	,hightlightBtn: function(isHightlighted) {
@@ -201,6 +210,28 @@ MainJS.prototype = {
 			}
 		}
 	}
+	,loadJsonData: function(filepath) {
+		return new Promise(function(resolve,reject) {
+			var req = new haxe_http_HttpJs(filepath);
+			req.onData = function(data) {
+				try {
+					resolve(JSON.parse(data));
+				} catch( _g ) {
+					var err = haxe_Exception.caught(_g).unwrap();
+					console.log("src/MainJS.hx:275:",err);
+					reject(err);
+				}
+			};
+			req.onError = function(err) {
+				console.log("src/MainJS.hx:280:","error: " + err);
+				reject(err);
+			};
+			req.onStatus = function(status) {
+				console.log("src/MainJS.hx:284:","status: " + status);
+			};
+			req.request(false);
+		});
+	}
 	,loadJson: function(url) {
 		var _gthis = this;
 		var req = new haxe_http_HttpJs(url);
@@ -210,14 +241,14 @@ MainJS.prototype = {
 				_gthis.setupQAndA();
 			} catch( _g ) {
 				var e = haxe_Exception.caught(_g).unwrap();
-				console.log("src/MainJS.hx:262:",e);
+				console.log("src/MainJS.hx:297:",e);
 			}
 		};
 		req.onError = function(error) {
-			console.log("src/MainJS.hx:266:","error: " + error);
+			console.log("src/MainJS.hx:301:","error: " + error);
 		};
 		req.onStatus = function(status) {
-			console.log("src/MainJS.hx:269:","status: " + status);
+			console.log("src/MainJS.hx:304:","status: " + status);
 		};
 		req.request(false);
 	}
