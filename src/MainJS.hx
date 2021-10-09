@@ -42,7 +42,7 @@ class MainJS {
 
 			init();
 			setupNav();
-			loadJson('data/css.json'); // start with css
+			loadJson('data/js.json'); // start with css
 		});
 	}
 
@@ -140,7 +140,7 @@ class MainJS {
 
 		// TODO set activa stateds
 
-		btnCSS.classList.add('active');
+		btnJS.classList.add('active');
 	}
 
 	function toggleNav(subject:String) {

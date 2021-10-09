@@ -36,10 +36,10 @@ Lambda.exists = function(it,f) {
 var MainJS = function() {
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-04 15:07:45" + " ");
+		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-06 09:33:36" + " ");
 		_gthis.init();
 		_gthis.setupNav();
-		_gthis.loadJson("data/css.json");
+		_gthis.loadJson("data/js.json");
 	});
 };
 MainJS.__name__ = true;
@@ -107,7 +107,7 @@ MainJS.prototype = {
 			_gthis.loadJsonData("data/js.json").then(($_=$global.console,$bind($_,$_.log))).catch(($_=$global.console,$bind($_,$_.log)));
 			_gthis.toggleNav("all");
 		};
-		this.btnCSS.classList.add("active");
+		this.btnJS.classList.add("active");
 	}
 	,toggleNav: function(subject) {
 		this.btnCSS.classList.remove("active");
@@ -128,7 +128,7 @@ MainJS.prototype = {
 			this.btnJS.classList.add("active");
 			break;
 		default:
-			console.log("src/MainJS.hx:153:","case '" + subject + "': trace ('" + subject + "');");
+			console.log("src/MainJS.hx:162:","case '" + subject + "': trace ('" + subject + "');");
 		}
 	}
 	,onCollapseQ: function() {
@@ -145,15 +145,15 @@ MainJS.prototype = {
 		},400);
 	}
 	,onChooseGood: function() {
-		console.log("src/MainJS.hx:177:","good");
+		console.log("src/MainJS.hx:186:","good");
 		this.nextQ();
 	}
 	,onChooseWrong: function() {
-		console.log("src/MainJS.hx:182:","wrong");
+		console.log("src/MainJS.hx:191:","wrong");
 		this.nextQ();
 	}
 	,onChooseSkip: function() {
-		console.log("src/MainJS.hx:189:","skip");
+		console.log("src/MainJS.hx:198:","skip");
 		this.nextQ();
 	}
 	,hightlightBtn: function(isHightlighted) {
@@ -218,16 +218,16 @@ MainJS.prototype = {
 					resolve(JSON.parse(data));
 				} catch( _g ) {
 					var err = haxe_Exception.caught(_g).unwrap();
-					console.log("src/MainJS.hx:275:",err);
+					console.log("src/MainJS.hx:284:",err);
 					reject(err);
 				}
 			};
 			req.onError = function(err) {
-				console.log("src/MainJS.hx:280:","error: " + err);
+				console.log("src/MainJS.hx:289:","error: " + err);
 				reject(err);
 			};
 			req.onStatus = function(status) {
-				console.log("src/MainJS.hx:284:","status: " + status);
+				console.log("src/MainJS.hx:293:","status: " + status);
 			};
 			req.request(false);
 		});
@@ -241,14 +241,14 @@ MainJS.prototype = {
 				_gthis.setupQAndA();
 			} catch( _g ) {
 				var e = haxe_Exception.caught(_g).unwrap();
-				console.log("src/MainJS.hx:297:",e);
+				console.log("src/MainJS.hx:306:",e);
 			}
 		};
 		req.onError = function(error) {
-			console.log("src/MainJS.hx:301:","error: " + error);
+			console.log("src/MainJS.hx:310:","error: " + error);
 		};
 		req.onStatus = function(status) {
-			console.log("src/MainJS.hx:304:","status: " + status);
+			console.log("src/MainJS.hx:313:","status: " + status);
 		};
 		req.request(false);
 	}
