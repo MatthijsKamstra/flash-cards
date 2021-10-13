@@ -98,16 +98,16 @@ class MainJS {
 	}
 
 	function sortQ(subject:String) {
-		trace('subject: ' + subject);
+		// trace('subject: ' + subject);
 		arr = [];
 		for (i in 0...all.length) {
 			var _all = all[i];
-			trace(_all.label);
+			// trace(_all.label);
 			if (_all.label == subject || subject == 'all')
 				arr.push(_all);
 		}
 
-		console.log(arr.length);
+		// console.log(arr.length);
 
 		setupQAndA();
 		toggleNav(subject);
@@ -118,7 +118,7 @@ class MainJS {
 			nr = Math.floor(Math.random() * (arr.length));
 		}
 
-		console.log(nr);
+		// console.log(nr);
 
 		var flashCard:FlashCardObj = arr[nr];
 		q.innerHTML = flashCard.html.question.replace('<p>', '').replace('</p>', '');

@@ -37,7 +37,7 @@ var MainJS = function() {
 	this.arr = [];
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-13 23:36:10" + " ");
+		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-13 23:39:16" + " ");
 		_gthis.init();
 		_gthis.setupNav();
 		_gthis.loadJson("data/q-and-a.min.json");
@@ -77,19 +77,16 @@ MainJS.prototype = {
 		toast.show();
 	}
 	,sortQ: function(subject) {
-		console.log("src/MainJS.hx:101:","subject: " + subject);
 		this.arr = [];
 		var _g = 0;
 		var _g1 = this.all.length;
 		while(_g < _g1) {
 			var i = _g++;
 			var _all = this.all[i];
-			console.log("src/MainJS.hx:105:",_all.label);
 			if(_all.label == subject || subject == "all") {
 				this.arr.push(_all);
 			}
 		}
-		$global.console.log(this.arr.length);
 		this.setupQAndA();
 		this.toggleNav(subject);
 	}
@@ -97,7 +94,6 @@ MainJS.prototype = {
 		if(nr == null) {
 			nr = Math.floor(Math.random() * this.arr.length);
 		}
-		$global.console.log(nr);
 		var flashCard = this.arr[nr];
 		var tmp = StringTools.replace(flashCard.html.question,"<p>","");
 		this.q.innerHTML = StringTools.replace(tmp,"</p>","");
