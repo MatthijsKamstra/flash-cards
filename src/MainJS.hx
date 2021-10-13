@@ -30,11 +30,12 @@ class MainJS {
 	// bootstrap collapse
 	var myCollapsible:Dynamic;
 	var bsCollapse:Dynamic;
-	// Q andd A
+	// Q and A
 	var q:ButtonElement;
 	var a:DivElement;
 	// arr with flash cards info
-	var arr:Array<FlashCardObj>;
+	var arr:Array<FlashCardObj> = [];
+	var all:Array<FlashCardObj> = [];
 
 	public function new() {
 		document.addEventListener("DOMContentLoaded", function(event) {
@@ -42,7 +43,8 @@ class MainJS {
 
 			init();
 			setupNav();
-			loadJson('data/js.json'); // start with css
+
+			loadJson('data/q-and-a.min.json'); // all data
 		});
 	}
 
@@ -80,7 +82,7 @@ class MainJS {
 		a.innerText = 'A';
 
 		// setup check for focus
-		trace(document.hasFocus());
+		// trace(document.hasFocus());
 		if (!document.hasFocus()) {
 			setupToast('You need to focus this document to use keyboard shortcuts');
 		}
@@ -95,10 +97,29 @@ class MainJS {
 		toast.show();
 	}
 
+	function sortQ(subject:String) {
+		trace('subject: ' + subject);
+		arr = [];
+		for (i in 0...all.length) {
+			var _all = all[i];
+			trace(_all.label);
+			if (_all.label == subject || subject == 'all')
+				arr.push(_all);
+		}
+
+		console.log(arr.length);
+
+		setupQAndA();
+		toggleNav(subject);
+	}
+
 	function setupQAndA(nr:Int = null) {
 		if (nr == null) {
-			nr = Math.round(Math.random() * arr.length);
+			nr = Math.floor(Math.random() * (arr.length));
 		}
+
+		console.log(nr);
+
 		var flashCard:FlashCardObj = arr[nr];
 		q.innerHTML = flashCard.html.question.replace('<p>', '').replace('</p>', '');
 		a.innerHTML = flashCard.html.answer;
@@ -111,36 +132,24 @@ class MainJS {
 		btnAll = document.getElementById("btn-all");
 
 		btnCSS.onclick = () -> {
-			loadJson('data/css.json');
 			toggleNav('css');
+			sortQ('css');
 		}
 		btnHTML.onclick = () -> {
-			loadJson('data/html.json');
 			toggleNav('html');
+			sortQ('html');
 		}
 		btnJS.onclick = () -> {
-			loadJson('data/js.json');
 			toggleNav('js');
+			sortQ('js');
 		}
 		btnAll.onclick = () -> {
-			// var promise1 = loadJsonData('data/css.json');
-			// var promise2 = loadJsonData('data/html.json');
-			// var promise3 = loadJsonData('data/js.json');
-
-			// Promise.all([promise1, promise2, promise3])
-			// 	.then(value)
-			// 	.catchError(console.log);
-
-			loadJsonData('data/js.json')
-				.then(console.log)
-				.catchError(console.log);
-
 			toggleNav('all');
+			sortQ('all');
 		}
 
 		// TODO set activa stateds
-
-		btnJS.classList.add('active');
+		// btnAll.classList.add('active');
 	}
 
 	function toggleNav(subject:String) {
@@ -274,6 +283,7 @@ class MainJS {
 	}
 
 	// ____________________________________ load data ____________________________________
+
 	function loadJsonData(filepath) {
 		return new Promise((resolve, reject) -> {
 			var req = new haxe.Http(filepath);
@@ -301,7 +311,9 @@ class MainJS {
 		req.onData = function(data:String) {
 			try {
 				arr = haxe.Json.parse(data);
-				setupQAndA();
+				all = haxe.Json.parse(data);
+				sortQ('all');
+				// setupQAndA();
 			} catch (e:Dynamic) {
 				trace(e);
 			}
@@ -314,6 +326,8 @@ class MainJS {
 		}
 		req.request(false); // false=GET, true=POST
 	}
+
+	// ____________________________________ main ____________________________________
 
 	static public function main() {
 		var app = new MainJS();
