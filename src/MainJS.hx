@@ -1,12 +1,9 @@
 package;
 
-import haxe.Json;
-import js.lib.Promise;
-import haxe.Timer;
-import js.Syntax;
 import AST.FlashCardObj;
+import haxe.Timer;
 import js.Browser.*;
-import js.Browser;
+import js.Syntax;
 import js.html.*;
 import model.constants.App;
 
@@ -131,19 +128,23 @@ class MainJS {
 		btnJS = document.getElementById("btn-js");
 		btnAll = document.getElementById("btn-all");
 
-		btnCSS.onclick = () -> {
+		btnCSS.onclick = (e:Event) -> {
+			e.preventDefault();
 			toggleNav('css');
 			sortQ('css');
 		}
-		btnHTML.onclick = () -> {
+		btnHTML.onclick = (e:Event) -> {
+			e.preventDefault();
 			toggleNav('html');
 			sortQ('html');
 		}
-		btnJS.onclick = () -> {
+		btnJS.onclick = (e:Event) -> {
+			e.preventDefault();
 			toggleNav('js');
 			sortQ('js');
 		}
-		btnAll.onclick = () -> {
+		btnAll.onclick = (e:Event) -> {
+			e.preventDefault();
 			toggleNav('all');
 			sortQ('all');
 		}
@@ -185,7 +186,9 @@ class MainJS {
 	}
 
 	function nextQ() {
+		// trace('nextQ');
 		// close if open, wait for the close, fade out, fade in, new question
+
 		onCollapseQ();
 		Timer.delay(() -> setupQAndA(), 400);
 	}
@@ -283,28 +286,6 @@ class MainJS {
 	}
 
 	// ____________________________________ load data ____________________________________
-
-	function loadJsonData(filepath) {
-		return new Promise((resolve, reject) -> {
-			var req = new haxe.Http(filepath);
-			req.onData = function(data:String) {
-				try {
-					resolve(Json.parse(data));
-				} catch (err:Dynamic) {
-					trace(err);
-					reject(err);
-				}
-			}
-			req.onError = function(err:String) {
-				trace('error: $err');
-				reject(err);
-			}
-			req.onStatus = function(status:Int) {
-				trace('status: $status');
-			}
-			req.request(false); // false=GET, true=POST
-		});
-	}
 
 	function loadJson(url:String) {
 		var req = new haxe.Http(url);
