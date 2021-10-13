@@ -11,8 +11,6 @@ using StringTools;
 
 /**
  * @author Matthijs Kamstra aka [mck]
- * MIT
- *
  */
 class MainJS {
 	// buttons
@@ -148,9 +146,6 @@ class MainJS {
 			toggleNav('all');
 			sortQ('all');
 		}
-
-		// TODO set activa stateds
-		// btnAll.classList.add('active');
 	}
 
 	function toggleNav(subject:String) {

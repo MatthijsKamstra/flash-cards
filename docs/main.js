@@ -37,7 +37,7 @@ var MainJS = function() {
 	this.arr = [];
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-14 00:12:16" + " ");
+		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-14 00:12:53" + " ");
 		_gthis.init();
 		_gthis.setupNav();
 		_gthis.loadJson("data/q-and-a.min.json");
@@ -145,7 +145,7 @@ MainJS.prototype = {
 			this.btnJS.classList.add("active");
 			break;
 		default:
-			console.log("src/MainJS.hx:172:","case '" + subject + "': trace ('" + subject + "');");
+			console.log("src/MainJS.hx:170:","case '" + subject + "': trace ('" + subject + "');");
 		}
 	}
 	,onCollapseQ: function() {
@@ -162,15 +162,15 @@ MainJS.prototype = {
 		},400);
 	}
 	,onChooseGood: function() {
-		console.log("src/MainJS.hx:198:","good");
+		console.log("src/MainJS.hx:196:","good");
 		this.nextQ();
 	}
 	,onChooseWrong: function() {
-		console.log("src/MainJS.hx:203:","wrong");
+		console.log("src/MainJS.hx:201:","wrong");
 		this.nextQ();
 	}
 	,onChooseSkip: function() {
-		console.log("src/MainJS.hx:210:","skip");
+		console.log("src/MainJS.hx:208:","skip");
 		this.nextQ();
 	}
 	,hightlightBtn: function(isHightlighted) {
@@ -237,14 +237,14 @@ MainJS.prototype = {
 				_gthis.sortQ("all");
 			} catch( _g ) {
 				var e = haxe_Exception.caught(_g).unwrap();
-				console.log("src/MainJS.hx:299:",e);
+				console.log("src/MainJS.hx:297:",e);
 			}
 		};
 		req.onError = function(error) {
-			console.log("src/MainJS.hx:303:","error: " + error);
+			console.log("src/MainJS.hx:301:","error: " + error);
 		};
 		req.onStatus = function(status) {
-			console.log("src/MainJS.hx:306:","status: " + status);
+			console.log("src/MainJS.hx:304:","status: " + status);
 		};
 		req.request(false);
 	}
