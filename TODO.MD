@@ -21,6 +21,11 @@
 - [x] toggle question close with key
 - [x] toggle question close
 - [x] delay next question
+- [x] pre styling
+- [ ] code prettyfiyer
+- [ ] q without markdown formatting
+- [ ] id in url
+- [ ] side panel with all questions
 - [ ] keep score
 - [ ] keep id in local storage
 - [ ] keep wrong
