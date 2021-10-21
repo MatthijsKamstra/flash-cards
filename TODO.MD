@@ -35,6 +35,7 @@
   - [ ] wrong
   - [ ] least shown
   - [ ] random
+- [ ] Safari doesn't look the part
 
 ---
 
