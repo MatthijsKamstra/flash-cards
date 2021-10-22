@@ -37,7 +37,7 @@ var MainJS = function() {
 	this.arr = [];
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-14 00:12:53" + " ");
+		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-22 22:44:40" + " ");
 		_gthis.init();
 		_gthis.setupNav();
 		_gthis.loadJson("data/q-and-a.min.json");
@@ -98,6 +98,7 @@ MainJS.prototype = {
 		var tmp = StringTools.replace(flashCard.html.question,"<p>","");
 		this.q.innerHTML = StringTools.replace(tmp,"</p>","");
 		this.a.innerHTML = flashCard.html.answer;
+		hljs.highlightAll();
 	}
 	,setupNav: function() {
 		var _gthis = this;
@@ -145,7 +146,7 @@ MainJS.prototype = {
 			this.btnJS.classList.add("active");
 			break;
 		default:
-			console.log("src/MainJS.hx:170:","case '" + subject + "': trace ('" + subject + "');");
+			console.log("src/MainJS.hx:169:","case '" + subject + "': trace ('" + subject + "');");
 		}
 	}
 	,onCollapseQ: function() {
@@ -162,15 +163,15 @@ MainJS.prototype = {
 		},400);
 	}
 	,onChooseGood: function() {
-		console.log("src/MainJS.hx:196:","good");
+		console.log("src/MainJS.hx:195:","good");
 		this.nextQ();
 	}
 	,onChooseWrong: function() {
-		console.log("src/MainJS.hx:201:","wrong");
+		console.log("src/MainJS.hx:200:","wrong");
 		this.nextQ();
 	}
 	,onChooseSkip: function() {
-		console.log("src/MainJS.hx:208:","skip");
+		console.log("src/MainJS.hx:207:","skip");
 		this.nextQ();
 	}
 	,hightlightBtn: function(isHightlighted) {
@@ -237,14 +238,14 @@ MainJS.prototype = {
 				_gthis.sortQ("all");
 			} catch( _g ) {
 				var e = haxe_Exception.caught(_g).unwrap();
-				console.log("src/MainJS.hx:297:",e);
+				console.log("src/MainJS.hx:296:",e);
 			}
 		};
 		req.onError = function(error) {
-			console.log("src/MainJS.hx:301:","error: " + error);
+			console.log("src/MainJS.hx:300:","error: " + error);
 		};
 		req.onStatus = function(status) {
-			console.log("src/MainJS.hx:304:","status: " + status);
+			console.log("src/MainJS.hx:303:","status: " + status);
 		};
 		req.request(false);
 	}

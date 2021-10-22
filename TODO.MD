@@ -22,10 +22,12 @@
 - [x] toggle question close
 - [x] delay next question
 - [x] pre styling
-- [ ] code prettyfiyer
-- [ ] q without markdown formatting
+- [x] https://highlightjs.org/
+- [x] code prettyfiyer
+- [x] q without markdown formatting
 - [ ] id in url
-- [ ] side panel with all questions
+- [x] start with offcanvas
+- [ ] offcanvas panel with all questions
 - [ ] keep score
 - [ ] keep id in local storage
 - [ ] keep wrong
@@ -35,7 +37,8 @@
   - [ ] wrong
   - [ ] least shown
   - [ ] random
-- [ ] Safari doesn't look the part
+- [x] Safari doesn't look the part
+- [x] accordion back to original code
 
 ---
 

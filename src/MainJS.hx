@@ -118,6 +118,8 @@ class MainJS {
 		var flashCard:FlashCardObj = arr[nr];
 		q.innerHTML = flashCard.html.question.replace('<p>', '').replace('</p>', '');
 		a.innerHTML = flashCard.html.answer;
+
+		Syntax.code('hljs.highlightAll();');
 	}
 
 	function setupNav() {
