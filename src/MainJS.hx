@@ -103,9 +103,26 @@ class MainJS {
 		}
 
 		// console.log(arr.length);
-
+		sideNav();
 		setupQAndA();
 		toggleNav(subject);
+	}
+
+	function sideNav() {
+		// js-offcanvas__list
+		var content = document.getElementById('js-offcanvas__list');
+		var msg = '';
+
+		msg += '<ul>';
+		for (i in 0...all.length) {
+			var e:FlashCardObj = all[i];
+			// trace(e.label);
+			msg += '<li><a href="?${e._id}" data-label="${e.label}">${e._id}</a></li>';
+		}
+
+		msg += '</ul>';
+
+		content.innerHTML = msg;
 	}
 
 	function setupQAndA(nr:Int = null) {
@@ -183,6 +200,8 @@ class MainJS {
 	}
 
 	function nextQ() {
+		trace(window.location.search);
+
 		// trace('nextQ');
 		// close if open, wait for the close, fade out, fade in, new question
 

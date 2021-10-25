@@ -27,7 +27,8 @@
 - [x] q without markdown formatting
 - [ ] id in url
 - [x] start with offcanvas
-- [ ] offcanvas panel with all questions
+- [x] offcanvas panel with all questions
+- [x] offcanvas panel with all questions working (see url)
 - [ ] offcanvas panel with all shortcuts
 - [ ] keep score
 - [ ] keep id in local storage

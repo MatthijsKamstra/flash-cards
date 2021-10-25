@@ -37,7 +37,7 @@ var MainJS = function() {
 	this.arr = [];
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-22 22:44:40" + " ");
+		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2021-10-25 23:12:37" + " ");
 		_gthis.init();
 		_gthis.setupNav();
 		_gthis.loadJson("data/q-and-a.min.json");
@@ -87,8 +87,23 @@ MainJS.prototype = {
 				this.arr.push(_all);
 			}
 		}
+		this.sideNav();
 		this.setupQAndA();
 		this.toggleNav(subject);
+	}
+	,sideNav: function() {
+		var content = window.document.getElementById("js-offcanvas__list");
+		var msg = "";
+		msg += "<ul>";
+		var _g = 0;
+		var _g1 = this.all.length;
+		while(_g < _g1) {
+			var i = _g++;
+			var e = this.all[i];
+			msg += "<li><a href=\"?" + e._id + "\" data-label=\"" + e.label + "\">" + e._id + "</a></li>";
+		}
+		msg += "</ul>";
+		content.innerHTML = msg;
 	}
 	,setupQAndA: function(nr) {
 		if(nr == null) {
@@ -146,7 +161,7 @@ MainJS.prototype = {
 			this.btnJS.classList.add("active");
 			break;
 		default:
-			console.log("src/MainJS.hx:169:","case '" + subject + "': trace ('" + subject + "');");
+			console.log("src/MainJS.hx:186:","case '" + subject + "': trace ('" + subject + "');");
 		}
 	}
 	,onCollapseQ: function() {
@@ -157,21 +172,22 @@ MainJS.prototype = {
 	}
 	,nextQ: function() {
 		var _gthis = this;
+		console.log("src/MainJS.hx:203:",window.location.search);
 		this.onCollapseQ();
 		haxe_Timer.delay(function() {
 			_gthis.setupQAndA();
 		},400);
 	}
 	,onChooseGood: function() {
-		console.log("src/MainJS.hx:195:","good");
+		console.log("src/MainJS.hx:214:","good");
 		this.nextQ();
 	}
 	,onChooseWrong: function() {
-		console.log("src/MainJS.hx:200:","wrong");
+		console.log("src/MainJS.hx:219:","wrong");
 		this.nextQ();
 	}
 	,onChooseSkip: function() {
-		console.log("src/MainJS.hx:207:","skip");
+		console.log("src/MainJS.hx:226:","skip");
 		this.nextQ();
 	}
 	,hightlightBtn: function(isHightlighted) {
@@ -238,14 +254,14 @@ MainJS.prototype = {
 				_gthis.sortQ("all");
 			} catch( _g ) {
 				var e = haxe_Exception.caught(_g).unwrap();
-				console.log("src/MainJS.hx:296:",e);
+				console.log("src/MainJS.hx:315:",e);
 			}
 		};
 		req.onError = function(error) {
-			console.log("src/MainJS.hx:300:","error: " + error);
+			console.log("src/MainJS.hx:319:","error: " + error);
 		};
 		req.onStatus = function(status) {
-			console.log("src/MainJS.hx:303:","status: " + status);
+			console.log("src/MainJS.hx:322:","status: " + status);
 		};
 		req.request(false);
 	}
