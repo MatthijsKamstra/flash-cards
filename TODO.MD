@@ -28,6 +28,7 @@
 - [ ] id in url
 - [x] start with offcanvas
 - [ ] offcanvas panel with all questions
+- [ ] offcanvas panel with all shortcuts
 - [ ] keep score
 - [ ] keep id in local storage
 - [ ] keep wrong
