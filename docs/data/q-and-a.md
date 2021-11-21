@@ -1,49 +1,51 @@
 # Q&A
 
-- [What is CSS BEM?](#What-is-CSS-BEM)
-- [Event loop](#Event-loop)
-- [What is the difference between Call, Apply and Bind?](#What-is-the-difference-between-Call,-Apply-and-Bind)
-- [Application Programming Interface (API)](#Application-Programming-Interface-(API))
+<a name="top"></a>
+
+- [What is CSS BEM?](#what-is-css-bem)
+- [Event loop](#event-loop)
+- [What is the difference between Call, Apply and Bind?](#what-is-the-difference-between-call-apply-and-bind)
+- [Application Programming Interface (API)](#application-programming-interface-api)
 - [function chaining](#function-chaining)
-- [Equality (==) vs. Identity (===)](#Equality-(==)-vs-Identity-(===))
+- [Equality (==) vs. Identity (===)](#equality-==-vs-identity-===)
 - [virtual dom](#virtual-dom)
-- [What is the purpose of race method in promise?](#What-is-the-purpose-of-race-method-in-promise)
-- [Hoisting](#Hoisting)
+- [What is the purpose of race method in promise?](#what-is-the-purpose-of-race-method-in-promise)
+- [Hoisting](#hoisting)
 - [await](#await)
-- [DOM](#DOM)
-- [What is a closure, and how/why would you use one?](#What-is-a-closure,-and-how_why-would-you-use-one)
+- [DOM](#dom)
+- [What is a closure, and how/why would you use one?](#what-is-a-closure-and-how_why-would-you-use-one)
 - [async](#async)
 - [prototype](#prototype)
-- [Explain Ajax in as much detail as possible.](#Explain-Ajax-in-as-much-detail-as-possible)
-- [What is BDD (Behavior Driven Development)? | Agile Alliance](#What-is-BDD-(Behavior-Driven-Development)-|-Agile-Alliance)
-- [What's the difference between a variable that is: 'null', 'undefined' or undeclared? How would you go about checking for any of these states?](#What's-the-difference-between-a-variable-that-is:-'null',-'undefined'-or-undeclared-How-would-you-go-about-checking-for-any-of-these-states)
-- [What is promise chaining?](#What-is-promise-chaining)
-- [Can you give an example of a curry function and why this syntax offers an advantage?](#Can-you-give-an-example-of-a-curry-function-and-why-this-syntax-offers-an-advantage)
-- [JavaScript Template Literals](#JavaScript-Template-Literals)
-- [What are the advantages and disadvantages of using Ajax?](#What-are-the-advantages-and-disadvantages-of-using-Ajax)
-- [Promise](#Promise)
+- [Explain Ajax in as much detail as possible.](#explain-ajax-in-as-much-detail-as-possible)
+- [What is BDD (Behavior Driven Development)?](#what-is-bdd-behavior-driven-development)
+- [What's the difference between a variable that is: 'null', 'undefined' or undeclared? How would you go about checking for any of these states?](#whats-the-difference-between-a-variable-that-is:-null-undefined-or-undeclared-how-would-you-go-about-checking-for-any-of-these-states)
+- [What is promise chaining?](#what-is-promise-chaining)
+- [Can you give an example of a curry function and why this syntax offers an advantage?](#can-you-give-an-example-of-a-curry-function-and-why-this-syntax-offers-an-advantage)
+- [JavaScript Template Literals](#javascript-template-literals)
+- [What are the advantages and disadvantages of using Ajax?](#what-are-the-advantages-and-disadvantages-of-using-ajax)
+- [Promise](#promise)
 - [jagged array](#jagged-array)
-- [Fetch API](#Fetch-API)
-- [What are the differences between variables created using 'let', 'var' or 'const'?](#What-are-the-differences-between-variables-created-using-'let',-'var'-or-'const')
+- [Fetch API](#fetch-api)
+- [What are the differences between variables created using 'let', 'var' or 'const'?](#what-are-the-differences-between-variables-created-using-let-var-or-const)
 - [timer](#timer)
-- [Export and Import](#Export-and-Import)
-- [Can you describe the main difference between a '.forEach' loop and a '.map()' loop and why you would pick one versus the other?](#Can-you-describe-the-main-difference-between-a-'forEach'-loop-and-a-'map()'-loop-and-why-you-would-pick-one-versus-the-other)
-- [What is promise.all()?](#What-is-promiseall())
-- [Explain how 'this' works in JavaScript](#Explain-how-'this'-works-in-JavaScript)
-- [What is REST?](#What-is-REST)
+- [Export and Import](#export-and-import)
+- [Can you describe the main difference between a '.forEach' loop and a '.map()' loop and why you would pick one versus the other?](#can-you-describe-the-main-difference-between-a-foreach-loop-and-a-map-loop-and-why-you-would-pick-one-versus-the-other)
+- [What is promise.all()?](#what-is-promiseall)
+- [Explain how 'this' works in JavaScript](#explain-how-this-works-in-javascript)
+- [What is REST?](#what-is-rest)
 - [data-\*](#data-\*)
-- [What does i18n stand for?](#What-does-i18n-stand-for)
+- [What does i18n stand for?](#what-does-i18n-stand-for)
 - [doctype](#doctype)
-- [Quirks Mode and Standards Mode](#Quirks-Mode-and-Standards-Mode)
+- [Quirks Mode and Standards Mode](#quirks-mode-and-standards-mode)
 - [http request](#http-request)
 - [download order](#download-order)
 - [span vs div](#span-vs-div)
-- [div, section & article](#div,-section-&-article)
+- [div, section & article](#div-section-&-article)
 
 
 ---------
 
-<a name="What-is-CSS-BEM"></a>
+<a name="what-is-css-bem"></a>
 ## What is CSS BEM?
 
 The BEM (Block Element Modifier) methodology is a naming convention for CSS classes in order to keep CSS more maintainable by defining namespaces to solve scoping issues. A Block is a standalone component that is reusable across projects and acts as a "namespace" for sub components (Elements). Modifiers are used as flags when a Block or Element is in a certain state or is different in structure or style.
@@ -99,9 +101,13 @@ Example
 - https://github.com/learning-zone/css-interview-questions
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="Event-loop"></a>
+<a name="event-loop"></a>
 ## Event loop
 
 The event loop is a single-threaded loop that monitors the call stack and checks if there is any work to be done in the task queue. If the call stack is empty and there are callback functions in the task queue, a function is dequeued and pushed onto the call stack to be executed.
@@ -125,9 +131,13 @@ window.setTimeout(calculate, 500);
 - https://2014.jsconf.eu/speakers/philip-roberts-what-the-heck-is-the-event-loop-anyway.html
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="What-is-the-difference-between-Call,-Apply-and-Bind"></a>
+<a name="what-is-the-difference-between-call-apply-and-bind"></a>
 ## What is the difference between Call, Apply and Bind?
 
 **a.) call()**
@@ -189,9 +199,13 @@ inviteEmployee2("Hello", "How are you?"); // Hello Jimmy Baily, How are you?
 #### References
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="Application-Programming-Interface-(API)"></a>
+<a name="application-programming-interface-api"></a>
 ## Application Programming Interface (API)
 
 **Application programming interfaces**, or APIs, simplify software development and innovation by enabling applications to exchange data and functionality easily and securely.
@@ -203,6 +217,10 @@ An application programming interface, or API, enables companies to open up their
 #### References
 
 - https://www.ibm.com/cloud/learn/api
+
+
+[👆 back to top](#top)
+
 
 
 ---------
@@ -296,9 +314,13 @@ Each of the functions in “Function Chaining” returns the current “Executio
 - https://dev.to/isiakaabd/method-chaining-in-javascript-154a
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="Equality-(==)-vs-Identity-(===)"></a>
+<a name="equality-==-vs-identity-==="></a>
 ## Equality (==) vs. Identity (===)
 
 Remember when performing comparisons, **the equality operator** (`==`) will attempt to make the data types the same before proceeding. On the other hand, **the identity operator** (`===`) requires both data types to be the same, as a prerequisite.
@@ -378,6 +400,10 @@ console.log(a == undefined); // true
 - https://medium.com/@ludico8/identity-vs-equality-battle-of-understanding-vs-758d396e922
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
 <a name="virtual-dom"></a>
@@ -390,9 +416,13 @@ Unlike browser DOM elements, React elements are plain objects and are cheap to c
 #### References
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="What-is-the-purpose-of-race-method-in-promise"></a>
+<a name="what-is-the-purpose-of-race-method-in-promise"></a>
 ## What is the purpose of race method in promise?
 
 `Promise.race()` method will return the promise instance which is firstly resolved or rejected. Let us take an example of race() method where promise2 is resolved first
@@ -413,9 +443,13 @@ Promise.race([promise1, promise2]).then(function (value) {
 #### References
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="Hoisting"></a>
+<a name="hoisting"></a>
 ## Hoisting
 
 JavaScript Hoisting refers to the process whereby the interpreter allocates memory for variable and function declarations prior to execution of the code. Declarations that are made using var are initialized with a default value of undefined. Declarations made using let and const are not initialized as part of hoisting.
@@ -471,6 +505,10 @@ Therefore,
 - https://www.digitalocean.com/community/tutorials/understanding-hoisting-in-javascript
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
 <a name="await"></a>
@@ -517,9 +555,13 @@ f1();
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="DOM"></a>
+<a name="dom"></a>
 ## DOM
 
 The Document Object Model (DOM) is an application programming interface (API) for HTML and XML documents. It defines the logical structure of documents and the way a document is accessed and manipulated.
@@ -547,9 +589,13 @@ In other words: The HTML DOM is a standard for how to get, change, add, or delet
 - https://www.w3schools.com/js/js_htmldom.asp
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="What-is-a-closure,-and-how_why-would-you-use-one"></a>
+<a name="what-is-a-closure-and-how_why-would-you-use-one"></a>
 ## What is a closure, and how/why would you use one?
 
 A closure is the combination of a function and the lexical environment within which that function was declared. The word "lexical" refers to the fact that lexical scoping uses the location where a variable is declared within the source code to determine where that variable is available. Closures are functions that have access to the outer (enclosing) function's variables—scope chain even after the outer function has returned.
@@ -565,6 +611,10 @@ A closure is the combination of a function and the lexical environment within wh
 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 - https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36
+
+
+[👆 back to top](#top)
+
 
 
 ---------
@@ -622,6 +672,10 @@ The function execution “pauses” at the line (\*) and resumes when the promis
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
 <a name="prototype"></a>
@@ -677,9 +731,13 @@ The `Object.prototype` is on the top of the prototype inheritance chain:
 - https://www.w3schools.com/js/js_object_prototypes.asp
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="Explain-Ajax-in-as-much-detail-as-possible"></a>
+<a name="explain-ajax-in-as-much-detail-as-possible"></a>
 ## Explain Ajax in as much detail as possible.
 
 Ajax (**asynchronous JavaScript and XML**) is a set of web development techniques using many web technologies on the client side to create asynchronous web applications.
@@ -705,10 +763,14 @@ The `XMLHttpRequest` API is frequently used for the asynchronous communication o
 - https://developer.mozilla.org/en-US/docs/AJAX
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="What-is-BDD-(Behavior-Driven-Development)-|-Agile-Alliance"></a>
-## What is BDD (Behavior Driven Development)? | Agile Alliance
+<a name="what-is-bdd-behavior-driven-development"></a>
+## What is BDD (Behavior Driven Development)?
 
 Behaviour Driven Development (BDD) is a synthesis and refinement of practices stemming from Test Driven Development (TDD) and Acceptance Test Driven Development (ATDD).
 
@@ -737,9 +799,13 @@ Teams already using TDD or ATDD may want to consider BDD for several reasons:
 - https://en.wikipedia.org/wiki/Behavior-driven_development
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="What's-the-difference-between-a-variable-that-is:-'null',-'undefined'-or-undeclared-How-would-you-go-about-checking-for-any-of-these-states"></a>
+<a name="whats-the-difference-between-a-variable-that-is:-null-undefined-or-undeclared-how-would-you-go-about-checking-for-any-of-these-states"></a>
 ## What's the difference between a variable that is: `null`, `undefined` or undeclared? How would you go about checking for any of these states?
 
 Undeclared variables are created when you assign a value to an identifier that is not previously created using `var`, `let` or `const`. Undeclared variables will be defined globally, outside of the current scope. In strict mode, a `ReferenceError` will be thrown when you try to assign to an undeclared variable. Undeclared variables are bad just like how global variables are bad. Avoid them at all cost! To check for them, wrap its usage in a `try`/`catch` block.
@@ -782,9 +848,13 @@ As a personal habit, I never leave my variables undeclared or unassigned. I will
 - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/undefined
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="What-is-promise-chaining"></a>
+<a name="what-is-promise-chaining"></a>
 ## What is promise chaining?
 
 The process of executing a sequence of asynchronous tasks one after another using promises is known as Promise chaining.
@@ -824,9 +894,13 @@ In the above handlers, the result is passed to the chain of .then() handlers wit
 #### References
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="Can-you-give-an-example-of-a-curry-function-and-why-this-syntax-offers-an-advantage"></a>
+<a name="can-you-give-an-example-of-a-curry-function-and-why-this-syntax-offers-an-advantage"></a>
 ## Can you give an example of a curry function and why this syntax offers an advantage?
 
 Currying is a pattern where a function with more than one parameter is broken into multiple functions that, when called in series, will accumulate all of the required parameters one at a time. This technique can be useful for making code written in a functional style easier to read and compose. It's important to note that for a function to be curried, it needs to start out as one function, then broken out into a sequence of functions that each accepts one parameter.
@@ -901,9 +975,13 @@ The first statement returns `7`, like the `add(3, 4)` statement. The second stat
 - https://hackernoon.com/currying-in-js-d9ddc64f162e
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="JavaScript-Template-Literals"></a>
+<a name="javascript-template-literals"></a>
 ## JavaScript Template Literals
 
 Template literals are literals delimited with backticks (`\``), allowing embedded expressions called substitutions.
@@ -953,9 +1031,13 @@ html += `</ul>`;
 - https://www.w3schools.com/JS//js_string_templates.asp
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="What-are-the-advantages-and-disadvantages-of-using-Ajax"></a>
+<a name="what-are-the-advantages-and-disadvantages-of-using-ajax"></a>
 ## What are the advantages and disadvantages of using Ajax?
 
 **Advantages**
@@ -974,9 +1056,13 @@ html += `</ul>`;
 - Basically most of the disadvantages of an SPA.
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="Promise"></a>
+<a name="promise"></a>
 ## Promise
 
 The Promise object represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
@@ -1058,6 +1144,10 @@ myFirstPromise.then((successMessage) => {
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
 <a name="jagged-array"></a>
@@ -1092,9 +1182,13 @@ for (var row = 0; row < measurements.length; row++) {
 - https://www.javascripttutorial.net/javascript-multidimensional-array/
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="Fetch-API"></a>
+<a name="fetch-api"></a>
 ## Fetch API
 
 The `Fetch` API provides an interface for fetching resources (including across the network). It will seem familiar to anyone who has used `XMLHttpRequest`, but the new API provides a more powerful and flexible feature set.
@@ -1137,9 +1231,13 @@ async function fetchText() {
 - https://www.javascripttutorial.net/javascript-fetch-api/
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="What-are-the-differences-between-variables-created-using-'let',-'var'-or-'const'"></a>
+<a name="what-are-the-differences-between-variables-created-using-let-var-or-const"></a>
 ## What are the differences between variables created using `let`, `var` or `const`?
 
 Variables declared using the `var` keyword are scoped to the function in which they are created, or if created outside of any function, to the global object. `let` and `const` are _block scoped_, meaning they are only accessible within the nearest set of curly braces (function, if-else block, or for-loop).
@@ -1221,6 +1319,10 @@ baz = "qux";
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
 <a name="timer"></a>
@@ -1255,9 +1357,13 @@ check out [even loop](event_loop.md) why this is
 #### References
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="Export-and-Import"></a>
+<a name="export-and-import"></a>
 ## Export and Import
 
 The export statement is used when creating JavaScript modules to export objects, functions, variables from the module so they can be used by other programs with the help of the import statements.
@@ -1313,9 +1419,13 @@ console.log(square(8)) //64
 - https://javascript.info/import-export
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="Can-you-describe-the-main-difference-between-a-'forEach'-loop-and-a-'map()'-loop-and-why-you-would-pick-one-versus-the-other"></a>
+<a name="can-you-describe-the-main-difference-between-a-foreach-loop-and-a-map-loop-and-why-you-would-pick-one-versus-the-other"></a>
 ## Can you describe the main difference between a `.forEach` loop and a `.map()` loop and why you would pick one versus the other?
 
 To understand the differences between the two, let's look at what each function does.
@@ -1356,9 +1466,13 @@ The main difference between `.forEach` and `.map()` is that `.map()` returns a n
 - https://codeburst.io/javascript-map-vs-foreach-f38111822c0f
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="What-is-promiseall()"></a>
+<a name="what-is-promiseall"></a>
 ## What is promise.all()?
 
 `Promise.all` is a promise that takes an array of promises as an input (an iterable), and it gets resolved when all the promises get resolved or any one of them gets rejected.
@@ -1383,9 +1497,13 @@ _Note: Remember that the order of the promises(output the result) is maintained 
 #### References
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="Explain-how-'this'-works-in-JavaScript"></a>
+<a name="explain-how-this-works-in-javascript"></a>
 ## Explain how `this` works in JavaScript
 
 There's no simple explanation for `this`; it is one of the most confusing concepts in JavaScript. A hand-wavey explanation is that the value of `this` depends on how the function is called. I have read many explanations on `this` online, and I found [Arnav Aggrawal](https://medium.com/@arnav_aggarwal)'s explanation to be the clearest. The following rules are applied:
@@ -1409,9 +1527,13 @@ ES6 allows you to use [arrow functions](http://2ality.com/2017/12/alternate-this
 - https://stackoverflow.com/a/3127440/1751946
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="What-is-REST"></a>
+<a name="what-is-rest"></a>
 ## What is REST?
 
 REST APIs provide a flexible, lightweight way to integrate applications, and have emerged as the most common method for connecting components in microservices architectures.
@@ -1428,6 +1550,10 @@ A REST Server simply provides access to resources and REST client accesses and m
 - https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
 <a name="data-\*"></a>
@@ -1442,9 +1568,13 @@ Answer: allow you to store extra information/data in the DOM. u can write valid 
 ```
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="What-does-i18n-stand-for"></a>
+<a name="what-does-i18n-stand-for"></a>
 ## What does i18n stand for?
 
 Internationalization
@@ -1468,6 +1598,10 @@ Internationalization is the process of designing a software application so that 
 #### References
 
 - https://www.w3.org/International/questions/qa-i18n
+
+
+[👆 back to top](#top)
+
 
 
 ---------
@@ -1494,9 +1628,13 @@ extra: this the first tag of html file, don't need a closing tag and not case se
 - [quirks-mode](quirks-mode.md)
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="Quirks-Mode-and-Standards-Mode"></a>
+<a name="quirks-mode-and-standards-mode"></a>
 ## Quirks Mode and Standards Mode
 
 Quirks mode refers to a technique used by some web browsers for the sake of maintaining backward compatibility with web pages designed for old web browsers instead of strictly complying with W3C and IETF standards in standards mode.
@@ -1524,6 +1662,10 @@ In quirks mode, layout emulates nonstandard behavior in Navigator 4 and Internet
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Quirks_Mode_and_Standards_Mode
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
 <a name="http-request"></a>
@@ -1546,6 +1688,10 @@ Answer: yes
 Answer: yes
 
 #### References
+
+
+[👆 back to top](#top)
+
 
 
 ---------
@@ -1603,6 +1749,10 @@ A script tag with `defer` waits until the entire parser is done and then runs al
 - https://flaviocopes.com/javascript-async-defer/
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
 <a name="span-vs-div"></a>
@@ -1619,9 +1769,13 @@ Extra: It is illegal to put block element inside inline element. `div` can have 
 ref: Stackoverflow: div vs span
 
 
+[👆 back to top](#top)
+
+
+
 ---------
 
-<a name="div,-section-&-article"></a>
+<a name="div-section-&-article"></a>
 ## div, section & article
 
 Question: When should you use section, div or article?
@@ -1639,6 +1793,10 @@ Good Summary:div, section & article
 Extra: Authors are strongly encouraged to view the div element as an element of last resort, for when no other element is suitable. Use of more appropriate elements instead of the div element leads to better accessibility for readers and easier maintainability for authors.
 
 ref: (copied from) W3C: section, W3C: div, W3c: article
+
+
+[👆 back to top](#top)
+
 
 
 ---------
